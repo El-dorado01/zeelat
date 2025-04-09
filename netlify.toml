@@ -1,9 +1,7 @@
 [build]
   functions = "functions"
   publish = "public"
-
-[functions]
-  node_bundler = "esbuild"
+  command = "composer install && php artisan optimize && npm install && npm run build"
 
 [[redirects]]
   from = "/*"
