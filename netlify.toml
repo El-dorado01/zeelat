@@ -1,7 +1,7 @@
 [build]
   functions = "functions"
   publish = "public"
-  command = "composer install && php artisan optimize && npm install && npm run build && cp -r vendor bootstrap config app public routes functions/"
+  command = "composer install && php artisan optimize && npm install && npm run build && cp -r vendor bootstrap config app public routes functions/ && chmod +x functions/php"
 
 [[redirects]]
   from = "/*"

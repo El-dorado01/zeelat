@@ -1,9 +1,12 @@
 const { exec } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
 exports.handler = async (event) => {
   return new Promise((resolve) => {
-    const phpPath = path.join(__dirname, 'php'); // Use bundled PHP
+    const phpPath = path.join(__dirname, 'php');
+    console.log('PHP path:', phpPath);
+    console.log('Files in dir:', fs.readdirSync(__dirname));
     const indexPath = path.join(__dirname, '../public/index.php');
     exec(
       `${phpPath} -f ${indexPath}`,
