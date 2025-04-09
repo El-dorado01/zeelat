@@ -27,7 +27,7 @@ const Faq = () => {
                                         aria-expanded="true"
                                         aria-controls="collapseOne"
                                     >
-                                        What is Topic Listing?
+                                        What services do you offer?
                                     </button>
                                 </h2>
 
@@ -38,9 +38,10 @@ const Faq = () => {
                                     data-bs-parent="#accordionExample"
                                 >
                                     <div className="accordion-body">
-                                        Topic Listing is free Bootstrap 5 CSS template.{' '}
-                                        <strong>You are not allowed to redistribute this template</strong> on any other template collection website
-                                        without our permission. Please contact TemplateMo for more detail. Thank you.
+                                        We offer <strong>website design and development services</strong>, as well as{' '}
+                                        <strong>enrollment management solutions.</strong>
+                                        To get started, simply submit your email address to initiate the enrollment process or contact us to discuss
+                                        your website design needs.
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +56,7 @@ const Faq = () => {
                                         aria-expanded="false"
                                         aria-controls="collapseTwo"
                                     >
-                                        How to find a topic?
+                                        How long does website design take?
                                     </button>
                                 </h2>
 
@@ -66,8 +67,9 @@ const Faq = () => {
                                     data-bs-parent="#accordionExample"
                                 >
                                     <div className="accordion-body">
-                                        You can search on Google with <strong>keywords</strong> such as templatemo portfolio, templatemo one-page
-                                        layouts, photography, digital marketing, etc.
+                                        The timeframe for completing a website design project varies depending on the scope and complexity of the
+                                        project. We work closely with our clients to ensure timely delivery, and our team is committed to meeting
+                                        deadlines.
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +84,7 @@ const Faq = () => {
                                         aria-expanded="false"
                                         aria-controls="collapseThree"
                                     >
-                                        Does it need to paid?
+                                        Do you offer ongoing support and maintenance ?
                                     </button>
                                 </h2>
 
@@ -93,8 +95,8 @@ const Faq = () => {
                                     data-bs-parent="#accordionExample"
                                 >
                                     <div className="accordion-body">
-                                        You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that
-                                        just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                        Yes, we offer ongoing support and maintenance for websites and enrolled programs. Our team is available to
+                                        answer questions, provide updates, and ensure that your website or program continues to run smoothly.
                                     </div>
                                 </div>
                             </div>

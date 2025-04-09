@@ -1,55 +1,68 @@
-// components/usePost.ts
 import { DeleteOptions } from '@/types';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 // import { useState } from 'react';
 
-export const usePost = (url: string, method: 'POST' | 'PATCH' = 'POST', editForm: any, options?: DeleteOptions) => {
-    // const [processing, setProcessing] = useState(false);
-    // const [errors, setErrors] = useState<any>({});
-
-    const { data, setData, post, patch, delete: destroy, processing, errors } = useForm(editForm);
-
-    // const handleRequest = async (data: any) => {
-    //     setProcessing(true);
-    //     setErrors({});
-    //     try {
-    //         const response = await fetch(url, {
-    //             method,
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify(data),
-    //         });
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             throw errorData.errors || 'Failed to submit';
-    //         }
-    //         options.onSuccess?.();
-    //     } catch (error: any) {
-    //         setErrors(error);
-    //         options.onError?.(error);
-    //     } finally {
-    //         setProcessing(false);
-    //     }
-    // };
+export const usePost = (url: string, formData: any, options?: DeleteOptions, method: 'POST' | 'PATCH' | 'PUT' = 'POST') => {
+    const { data, setData, post, put, patch, delete: destroy, processing: formProcessing, errors, setError, recentlySuccessful } = useForm(formData);
+    const [putProcessing, setPutProcessing] = useState(false);
 
     let handleRequest;
 
-    if(method === "PATCH"){
-        handleRequest = (data: any) => {
-            patch(url, {
+    if (method === 'PUT') {
+        handleRequest = (updatedData?: any) => {
+            const requestData = updatedData !== undefined ? { ...data, ...updatedData } : data;
+
+            router.put(url, requestData, {
                 preserveScroll: true,
                 ...options,
+                onStart: () => {
+                    setPutProcessing(true); // Set processing to true for PUT
+                },
+                onFinish: () => {
+                    setPutProcessing(false); // Reset processing when done
+                },
+                onError: (err) => {
+                    setError(err); // Sync errors with useForm
+                    if (options?.onError) options.onError(err);
+                },
             });
         };
-    }else {
-        handleRequest = (data: any) => {
+    } 
+    else if(method === "PATCH"){
+        handleRequest = (requestData: any) => {
+            
+            //     patch(url, {
+            //         preserveScroll: true,
+            //         ...options,
+            //     });
+            router.patch(url, requestData, {
+                preserveScroll: true,
+                ...options,
+                onStart: () => {
+                    setPutProcessing(true); // Set processing to true for PUT
+                },
+                onFinish: () => {
+                    setPutProcessing(false); // Reset processing when done
+                },
+                onError: (err) => {
+                    setError(err); // Sync errors with useForm
+                    if (options?.onError) options.onError(err);
+                },
+            });
+        };
+    }
+    else {
+        handleRequest = () => {            
             post(url, {
                 preserveScroll: true,
                 ...options,
             });
         };
-
     }
 
+    // Use formProcessing for POST, putProcessing for PUT
+    const processing = method === 'PUT' ? putProcessing : method === 'PATCH' ? putProcessing : formProcessing;
 
-    return { handleRequest, processing, errors, data, setData };
+    return { handleRequest, processing, errors, data, setData, recentlySuccessful };
 };

@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import Contact from '../components/page/Contact';
 import Explore from '../components/page/Explore';
@@ -9,6 +9,8 @@ import Timeline from '../components/page/Timeline';
 import PageLayout from '../layouts/page-layout';
 
 export default function Home() {
+    const { props } = usePage();
+    
     useEffect(() => {
         import('../lib/jquery.min').then(() => {
             import('../lib/bootstrap.bundle.min').then(() => {
@@ -23,14 +25,14 @@ export default function Home() {
 
     return (
         <>
-            <PageLayout title="This is a layout">
+            <PageLayout title="This is a layout" site_settings={props.site_settings}>
                 <Head title="Home" />
                 <Hero />
                 <Featured />
-                <Explore />
+                <Explore alumni={props.alumni} services={props.services} />
                 <Timeline />
                 <Faq />
-                <Contact />
+                <Contact site_settings={props.site_settings} />
             </PageLayout>
         </>
     );

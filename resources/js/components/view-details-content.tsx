@@ -1,18 +1,22 @@
+import { Student } from '@/types';
 import { UserIcon } from 'lucide-react';
-import { useState } from 'react';
-// import { Button } from './ui/button';
-// const [editOpen, setEditOpen] = useState(false);
-// const [alumniOpen, setAlumniOpen] = useState(false);
+import MoreActions from './more-actions';
+import { StudentAddToAlumni } from './student-addToAlumni';
+import StudentEdit from './student-edit';
 
 // Enhanced card design for View Details
-export const ViewDetailsContent = ({ student }: any) => (
+export const ViewDetailsContent = ({ student, setViewOpen }: { student: Student; setViewOpen: (open: boolean) => void }) => (
     <div className="space-y-6">
         {/* Card Container */}
         <div className="overflow-hidden rounded-lg bg-white shadow-md">
             {/* Header with Image */}
             <div className="flex items-center gap-4 bg-gray-100 p-4">
                 {student.image ? (
-                    <img src={student.image} alt={`${student.first_name} ${student.last_name}`} className="h-16 w-16 rounded-full object-cover" />
+                    <img
+                        src={student.image.startsWith('http') ? student.image : '/storage/' + student.image}
+                        alt={`${student.first_name} ${student.last_name}`}
+                        className="h-16 w-16 rounded-full object-cover"
+                    />
                 ) : (
                     <UserIcon className="h-16 w-16 text-gray-400" />
                 )}
@@ -80,12 +84,9 @@ export const ViewDetailsContent = ({ student }: any) => (
 
             {/* Actions */}
             <div className="flex gap-2 border-t border-gray-200 p-4">
-                {/* <Button variant="outline" onClick={() => setEditOpen(true)}>
-                    Edit
-                </Button>
-                <Button variant="default" onClick={() => setAlumniOpen(true)}>
-                    Add to Alumni
-                </Button> */}
+                {/* <MoreActions student={student} /> */}
+                <StudentEdit student={student} />
+                <StudentAddToAlumni student={student} setViewOpen={setViewOpen} />
             </div>
         </div>
     </div>

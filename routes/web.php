@@ -1,15 +1,16 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\Dashboard\ServiceRequestController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('enrollments', [EnrollmentController::class, 'store'])->name('enrollment.store');
 
 Route::post('service-request', [ServiceRequestController::class, 'store'])->name('service_request.store');
 

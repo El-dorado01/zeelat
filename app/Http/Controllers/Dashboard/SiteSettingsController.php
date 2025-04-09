@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\SiteSettingsRequest;
 use App\Models\SiteSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class SiteSettingsController extends Controller
@@ -18,7 +20,10 @@ class SiteSettingsController extends Controller
         if (!auth()->user() || !auth()->user()->isAdmin) { 
             return redirect()->back()->withErrors('Unauthorized action.');
         }
-        return Inertia::render('dashboard/site-settings');
+        $settings = SiteSettings::first();
+        return Inertia::render('dashboard/site-settings', [
+            'site_settings' => $settings
+        ]);
     }
 
     /**
@@ -32,9 +37,14 @@ class SiteSettingsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SiteSettingsRequest $request)
     {
-        //
+        try {
+            SiteSettings::create($request->validated());
+            return redirect()->back()->with('success', 'Site settings has been enabled!');
+        } catch (\Exception $e) {
+            throw new \Exception('Failed to enable site settings: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -58,13 +68,32 @@ class SiteSettingsController extends Controller
      */
     public function update(SiteSettingsRequest $request, SiteSettings $siteSettings)
     {
-        try {
-            $siteSettings->update($request->validated());
-    
-            return to_route('site_settings.index')->with('success', 'Settings updated successfully!');
-        } catch (\Exception $e) {
-            throw new \Exception('Failed to update site settings: ' . $e->getMessage());
-        }
+        // dd($request->validated());
+        DB::transaction(function () use ($request, $siteSettings) {
+            try {
+                $data = $request->validated();
+
+                if ($request->hasFile('site_logo')) {
+                    // Delete old image if it exists
+                    if ($siteSettings->site_logo) {
+                        Storage::disk('public')->delete($siteSettings->site_logo);
+                    }
+                    // Store new image and update path
+                    $data['site_logo'] = $request->file('site_logo')->store('site-logo', 'public');
+                }
+
+                $success = $siteSettings->update($data);
+                if (!$success) {
+                    \Log::error('Update failed', $request->validated());
+                    throw new \Exception('Update operation returned false');
+                }
+                
+                return redirect()->back()->with('success', 'Settings updated successfully!');
+            } catch (\Exception $e) {
+                throw new \Exception('Failed to update site settings: ' . $e->getMessage());
+            }
+
+        });
     }
 
     /**

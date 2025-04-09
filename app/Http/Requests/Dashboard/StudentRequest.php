@@ -45,5 +45,14 @@ class StudentRequest extends FormRequest
         }
 
         return $rules;
+        
+    }
+
+    protected function prepareForValidation()
+    {
+        // If image isn’t updated, don’t send it as null
+        if (!$this->hasFile('image') && $this->route('student')->image) {
+            $this->merge(['image' => $this->route('student')->image]);
+        }
     }
 }

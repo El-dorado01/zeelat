@@ -21,7 +21,7 @@ const ContactForm = () => {
     };
     return (
         <>
-            <div className="col-lg-5 mb-lg-0 col-12 mb-4">
+            <div className="col-lg-7 mb-lg-0 col-12 mb-4">
                 <form onSubmit={handleSubmit} className="custom-form contact-form" role="form">
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-12">
@@ -91,7 +91,7 @@ const ContactForm = () => {
 
                         <div className="col-lg-4 col-12 ms-auto">
                             <button type="submit" className="form-control" disabled={processing}>
-                                Submit
+                                {processing ? <>Submitting...</> : 'Submit'}
                             </button>
                         </div>
                     </div>

@@ -36,7 +36,7 @@ class ContactController extends Controller
         try {
             Contact::create($request->validated());
     
-            return to_route('home')->with('success', 'Your message has been received!');
+            return to_route('home')->with('success', 'Thank you, your message has been received!');
         } catch (\Exception $e) {
             throw new \Exception('Failed to send a message: ' . $e->getMessage());
         }

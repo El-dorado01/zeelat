@@ -11,7 +11,7 @@ class ContactRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,5 +27,12 @@ class ContactRequest extends FormRequest
             'subject' => ['required', 'string'],
             'message' => ['required', 'string'],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'email' => strtolower($this->input('email')),
+        ]);
     }
 }

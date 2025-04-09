@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class StudentsController extends Controller
@@ -19,7 +20,7 @@ class StudentsController extends Controller
     public function index()
     {
         //Admin only
-        $students = Student::with('user')->get();
+        $students = Student::with('user')->where('isAlumni', '=', false)->get();
 
         return Inertia::render('dashboard/students', [
             'students' => $students,
@@ -91,6 +92,16 @@ class StudentsController extends Controller
             try {
                 // Get validated data
                 $data = $request->validated();
+
+                if ($request->hasFile('image')) {
+                    // Delete old image if it exists
+                    if ($student->image) {
+                        Storage::disk('public')->delete($student->image);
+                    }
+                    // Store new image and update path
+                    $data['image'] = $request->file('image')->store('student-images', 'public');
+                }
+
 
                 // Update student record
                 $student->update($data);

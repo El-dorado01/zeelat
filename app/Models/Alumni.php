@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alumni extends Model
 {
+    protected $table = 'alumnis';
+    
     protected $fillable = [
         'name',
         'email',
@@ -13,5 +15,13 @@ class Alumni extends Model
         'graduated_on',
         'remarks',
         'image',
+        'isDisplayed'
     ];
+
+     protected $dates = ['graduated_on'];
+
+     public static function displayedOnHomePage()
+    {
+        return static::where('isDisplayed', true)->get();
+    }
 }

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->enum('relationship', ['Parent', 'Spouse', 'Sibling', 'Guardian', 'Other'])->default('Parent');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('image');
+            $table->boolean('isAlumni')->default(false);
             $table->timestamps();
         });
     }

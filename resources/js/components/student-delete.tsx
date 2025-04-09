@@ -1,14 +1,14 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { ViewDetailsContent } from './view-details-content';
+import { FormErrors, Student } from '@/types';
+import { LoaderCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { useDelete } from './useDelete';
-import { toast } from 'sonner';
-import { LoaderCircle } from 'lucide-react';
 
-const StudentDelete = ({student} : any) => {
+const StudentDelete = ({ student }: { student: Student }) => {
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [viewOpen, setViewOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
@@ -24,10 +24,11 @@ const StudentDelete = ({student} : any) => {
     const { handleDelete, deleteProcessing, deleteErrors } = useDelete(`/students/${student.id}`, {
         onSuccess: () => {
             setDeleteOpen(false);
-            toast.success('Student deleted successfully');
         },
-        onError: (errors) => {
-            toast.error(Object.values(errors)[0]);
+        onError: (errors: FormErrors) => {
+            const firstError = Object.values(errors)[0];
+            const errorMessage = Array.isArray(firstError) ? firstError[0] : firstError;
+            toast.error(errorMessage || 'An error occurred');
         },
     });
 
@@ -36,26 +37,34 @@ const StudentDelete = ({student} : any) => {
             {isMobile ? (
                 <Drawer open={deleteOpen} onOpenChange={setDeleteOpen}>
                     <DropdownMenuItem
+                        className="bg-red-500"
+                        asChild
                         onSelect={(e) => {
                             e.preventDefault();
                             setDeleteOpen(true);
                         }}
                     >
-                        Delete
+                        <Button className="w-full transition duration-300" variant="destructive">
+                            Delete
+                        </Button>
                     </DropdownMenuItem>
                     <DrawerContent className="p-4">
                         <DrawerHeader>
                             <DrawerTitle>Are you sure?</DrawerTitle>
                             <DrawerDescription>
-                                This will permanently delete {student.first_name} {student.last_name}.
+                                This action cannot be undone. This will permanently delete{' '}
+                                <strong>
+                                    {student.first_name} {student.last_name}
+                                </strong>{' '}
+                                from the system.
                             </DrawerDescription>
                         </DrawerHeader>
-                        {deleteErrors.email && <span className="text-red-500">{deleteErrors.email}</span>}
+
                         <DrawerFooter>
                             <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                 {deleteProcessing ? (
                                     <>
-                                        <LoaderCircle className="mr-2 animate-spin" />
+                                        <LoaderCircle className="mr-1 animate-spin" />
                                         Deleting
                                     </>
                                 ) : (
@@ -68,26 +77,34 @@ const StudentDelete = ({student} : any) => {
             ) : (
                 <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
                     <DropdownMenuItem
+                        className="bg-red-500"
+                        asChild
                         onSelect={(e) => {
                             e.preventDefault();
                             setDeleteOpen(true);
                         }}
                     >
-                        Delete
+                        <Button className="w-full transition duration-300" variant="destructive">
+                            Delete
+                        </Button>
                     </DropdownMenuItem>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle>Are you absolutely sure?</DialogTitle>
                             <DialogDescription>
-                                This action cannot be undone. This will permanently delete {student.first_name} {student.last_name} from the system.
+                                This action cannot be undone. This will permanently delete{' '}
+                                <strong>
+                                    {student.first_name} {student.last_name}
+                                </strong>{' '}
+                                from the system.
                             </DialogDescription>
                         </DialogHeader>
-                        {deleteErrors.email && <span className="text-red-500">{deleteErrors.email}</span>}
+
                         <DialogFooter>
                             <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                 {deleteProcessing ? (
                                     <>
-                                        <LoaderCircle className="mr-2 animate-spin" />
+                                        <LoaderCircle className="mr-1 animate-spin" />
                                         Deleting
                                     </>
                                 ) : (

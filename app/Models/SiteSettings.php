@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SiteSettings extends Model
 {
     protected $fillable = [
-        'active_email'
+        'auto_enroll',
+        'active_email',
+        'site_logo',
     ];
 }

@@ -20,7 +20,8 @@ class Student extends Model
         'next_of_kin_phone_number',
         'next_of_kin_email',
         'relationship',
-        'image'
+        'image',
+        'isAlumni'
     ];
 
     public function getUsername(){

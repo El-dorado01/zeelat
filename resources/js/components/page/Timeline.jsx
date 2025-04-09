@@ -17,38 +17,39 @@ const Timeline = () => {
                                 </div>
 
                                 <li>
-                                    <h4 className="mb-3 text-white">Search your favourite topic</h4>
+                                    <h4 className="mb-3 text-white">Submit your Email</h4>
 
                                     <p className="text-white">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, cumque magnam? Sequi, cupiditate
-                                        quibusdam alias illum sed esse ad dignissimos libero sunt, quisquam numquam aliquam? Voluptas, accusamus
-                                        omnis?
+                                        Get started by submitting your email address. This will initiate the enrollment process, and you'll receive a
+                                        confirmation message with further instructions. Please ensure you provide a valid email to receive important
+                                        updates.
                                     </p>
 
                                     <div className="icon-holder">
-                                        <i className="bi-search"></i>
+                                        <i className="bi-envelope"></i>
                                     </div>
                                 </li>
 
                                 <li>
-                                    <h4 className="mb-3 text-white">Bookmark &amp; Keep it for yourself</h4>
+                                    <h4 className="mb-3 text-white">Check Email for Approval Message</h4>
 
                                     <p className="text-white">
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint animi necessitatibus aperiam repudiandae nam
-                                        omnis est vel quo, nihil repellat quia velit error modi earum similique odit labore. Doloremque, repudiandae?
+                                        After submitting your email, check your inbox for an approval message from us. This message will contain a
+                                        link to verify your email address and proceed with the enrollment process. Please check your spam folder if
+                                        you don't see it.
                                     </p>
 
                                     <div className="icon-holder">
-                                        <i className="bi-bookmark"></i>
+                                        <i className="bi-person-rolodex"></i>
                                     </div>
                                 </li>
 
                                 <li>
-                                    <h4 className="mb-3 text-white">Read &amp; Enjoy</h4>
+                                    <h4 className="mb-3 text-white">Complete your Registration</h4>
 
                                     <p className="text-white">
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi vero quisquam, rem assumenda similique
-                                        voluptas distinctio, iste est hic eveniet debitis ut ducimus beatae id? Quam culpa deleniti officiis autem?
+                                        Once you've verified your email address, you'll be able to login with your credentials to complete the
+                                        registration process. Fill out the required information, set up your account and you're ready to go!
                                     </p>
 
                                     <div className="icon-holder">
@@ -62,8 +63,8 @@ const Timeline = () => {
                     <div className="col-12 mt-5 text-center">
                         <p className="text-white">
                             Want to learn more?
-                            <a href="#" className="btn custom-btn custom-border-btn ms-3">
-                                Check out Youtube
+                            <a href="#section_5" className="btn custom-btn custom-border-btn click-scroll ms-3">
+                                Contact Us
                             </a>
                         </p>
                     </div>

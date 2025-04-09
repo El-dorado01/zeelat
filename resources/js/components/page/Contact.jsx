@@ -1,6 +1,6 @@
-import ContactForm from "./ContactForm";
+import ContactForm from './ContactForm';
 
-const Contact = () => {
+const Contact = ({ site_settings }) => {
     return (
         <section className="contact-section section-padding section-bg" id="section_5">
             <div className="container">
@@ -11,50 +11,26 @@ const Contact = () => {
 
                     <ContactForm />
 
-                    <div className="col-lg-3 col-md-6 mb-lg- mb-md-0 col-12 ms-auto mb-3">
+                    <div className="col-lg-4 col-md-6 col-12 mx-auto">
                         <h4 className="mb-3">Head office</h4>
 
-                        <p>Bay St &amp;, Larkin St, San Francisco, CA 94109, United States</p>
+                        <p>Orita Aje, Iludun Osogbo, Osun State</p>
 
                         <hr />
 
                         <p className="d-flex align-items-center mb-1">
                             <span className="me-2">Phone</span>
 
-                            <a href="tel: 305-240-9671" className="site-footer-link">
-                                305-240-9671
+                            <a href="tel: 080-5192-9719" className="site-footer-link">
+                                080-5192-9719
                             </a>
                         </p>
 
                         <p className="d-flex align-items-center">
                             <span className="me-2">Email</span>
 
-                            <a href="mailto:info@company.com" className="site-footer-link">
-                                info@company.com
-                            </a>
-                        </p>
-                    </div>
-
-                    <div className="col-lg-3 col-md-6 col-12 mx-auto">
-                        <h4 className="mb-3">Dubai office</h4>
-
-                        <p>Burj Park, Downtown Dubai, United Arab Emirates</p>
-
-                        <hr />
-
-                        <p className="d-flex align-items-center mb-1">
-                            <span className="me-2">Phone</span>
-
-                            <a href="tel: 110-220-3400" className="site-footer-link">
-                                110-220-3400
-                            </a>
-                        </p>
-
-                        <p className="d-flex align-items-center">
-                            <span className="me-2">Email</span>
-
-                            <a href="mailto:info@company.com" className="site-footer-link">
-                                info@company.com
+                            <a href={site_settings ? site_settings.active_email : 'info@company.com'} className="site-footer-link">
+                                {site_settings ? site_settings.active_email : 'info@company.com'}
                             </a>
                         </p>
                     </div>

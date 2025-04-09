@@ -10,14 +10,10 @@ import { Student } from '@/types';
 import { MoreHorizontal } from 'lucide-react';
 import { toast } from 'sonner';
 import StudentDelete from './student-delete';
-import StudentViewDetails from './student-view-details';
+import { StudentViewDetails } from './student-view-details';
 import { Button } from './ui/button';
 
-interface StudentActionsProps<T> {
-    student: T;
-}
-
-export const StudentActions = <T extends Student>({ student }: StudentActionsProps<T>) => {
+export const StudentActions = ({ student }: { student: Student }) => {
     return (
         <div>
             <DropdownMenu>

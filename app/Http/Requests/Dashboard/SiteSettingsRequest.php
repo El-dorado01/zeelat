@@ -22,8 +22,9 @@ class SiteSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'autoEnroll' => 'required|boolean',
-            'active_email' => 'required|string|lowercase|email|max:255',
+            'auto_enroll' => 'sometimes|boolean',
+            'active_email' => 'sometimes|string|lowercase|email|max:255',
+            'site_logo' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 

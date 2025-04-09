@@ -12,6 +12,7 @@ import { LoaderCircle, MoreHorizontal } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
+import { ScrollArea } from './ui/scroll-area';
 import { useDelete } from './useDelete';
 
 interface ContactProps<T> {
@@ -59,7 +60,6 @@ export const ContactActions = <T extends { id: number; email: string; name?: str
                 <h3 className="text-sm font-medium text-gray-700">Message</h3>
                 <p className="mt-2 whitespace-pre-wrap text-gray-900">{contact.message || 'No message content available.'}</p>
             </div>
-
         </div>
     );
 
@@ -91,9 +91,11 @@ export const ContactActions = <T extends { id: number; email: string; name?: str
                                     <DrawerTitle className="text-lg font-bold">Message Details</DrawerTitle>
                                     <DrawerDescription className="text-sm text-gray-500">View the full message below.</DrawerDescription>
                                 </DrawerHeader>
-                                <div className="py-4">
-                                    <MessageViewContent />
-                                </div>
+                                <ScrollArea className="overflow-y-auto">
+                                    <div className="py-4">
+                                        <MessageViewContent />
+                                    </div>
+                                </ScrollArea>
                                 <DrawerFooter className="border-t pt-4">
                                     <Button variant="outline" onClick={() => setViewOpen(false)}>
                                         Close
@@ -161,7 +163,6 @@ export const ContactActions = <T extends { id: number; email: string; name?: str
                                         This action cannot be undone. This will permanently delete this message from our servers.
                                     </DrawerDescription>
                                 </DrawerHeader>
-                                {deleteErrors.email && <span className="text-red-500">{deleteErrors.email}</span>}
                                 <DrawerFooter>
                                     <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                         {deleteProcessing ? (
@@ -196,7 +197,6 @@ export const ContactActions = <T extends { id: number; email: string; name?: str
                                         This action cannot be undone. This will permanently delete this message from our servers.
                                     </DialogDescription>
                                 </DialogHeader>
-                                {deleteErrors.email && <span className="text-red-500">{deleteErrors.email}</span>}
                                 <DialogFooter>
                                     <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                         {deleteProcessing ? (

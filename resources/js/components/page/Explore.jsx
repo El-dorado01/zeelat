@@ -1,12 +1,14 @@
+import Alumni from './ALumni';
 import { ImageComponent } from './Images';
+import Services from './Services';
 
-const Explore = () => {
+const Explore = ({ alumni, services }) => {
     return (
         <section className="explore-section section-padding" id="section_2">
             <div className="container">
                 <div className="row">
                     <div className="col-12 text-center">
-                        <h2 className="mb-4">Browse Topics</h2>
+                        <h2 className="mb-4">Services & Solutions</h2>
                     </div>
                 </div>
             </div>
@@ -25,11 +27,11 @@ const Explore = () => {
                                 aria-controls="design-tab-pane"
                                 aria-selected="true"
                             >
-                                Design
+                                Services
                             </button>
                         </li>
 
-                        <li className="nav-item" role="presentation">
+                        {/* <li className="nav-item" role="presentation">
                             <button
                                 className="nav-link"
                                 id="marketing-tab"
@@ -57,7 +59,7 @@ const Explore = () => {
                             >
                                 Finance
                             </button>
-                        </li>
+                        </li> */}
 
                         <li className="nav-item" role="presentation">
                             <button
@@ -70,7 +72,7 @@ const Explore = () => {
                                 aria-controls="music-tab-pane"
                                 aria-selected="false"
                             >
-                                Music
+                                Alumni
                             </button>
                         </li>
 
@@ -85,7 +87,7 @@ const Explore = () => {
                                 aria-controls="education-tab-pane"
                                 aria-selected="false"
                             >
-                                Education
+                                Enrollment
                             </button>
                         </li>
                     </ul>
@@ -97,259 +99,23 @@ const Explore = () => {
                     <div className="col-12">
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="design-tab-pane" role="tabpanel" aria-labelledby="design-tab" tabIndex="0">
-                                <div className="row">
-                                    <div className="col-lg-4 col-md-6 mb-lg-0 col-12 mb-4">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Web Design</h5>
-
-                                                        <p className="mb-0">Topic Listing Template based on Bootstrap 5</p>
-                                                    </div>
-
-                                                    <span className="badge bg-design rounded-pill ms-auto">14</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-1" />
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-4 col-md-6 mb-lg-0 col-12 mb-4">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Graphic</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-design rounded-pill ms-auto">75</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-2" />
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-4 col-md-6 col-12">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Logo Design</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-design rounded-pill ms-auto">100</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-3" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="tab-pane fade" id="marketing-tab-pane" role="tabpanel" aria-labelledby="marketing-tab" tabIndex="0">
-                                <div className="row">
-                                    <div className="col-lg-4 col-md-6 mb-lg-3 col-12 mb-4">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Advertising</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-advertising rounded-pill ms-auto">30</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-4" />
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-4 col-md-6 mb-lg-3 col-12 mb-4">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Video Content</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-advertising rounded-pill ms-auto">65</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-5" />
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-4 col-md-6 col-12">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Viral Tweet</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-advertising rounded-pill ms-auto">50</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-6" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="tab-pane fade" id="finance-tab-pane" role="tabpanel" aria-labelledby="finance-tab" tabIndex="0">
-                                {' '}
-                                <div className="row">
-                                    <div className="col-lg-6 col-md-6 mb-lg-0 col-12 mb-4">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Investment</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-finance rounded-pill ms-auto">30</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-7" />
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-6 col-md-6 col-12">
-                                        <div className="custom-block custom-block-overlay">
-                                            <div className="d-flex flex-column h-100">
-                                                <ImageComponent id="explore-8" />
-
-                                                <div className="custom-block-overlay-text d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2 text-white">Finance</h5>
-
-                                                        <p className="text-white">
-                                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint animi necessitatibus
-                                                            aperiam repudiandae nam omnis
-                                                        </p>
-
-                                                        <a href="topics-detail.html" className="btn custom-btn mt-lg-3 mt-2">
-                                                            Learn More
-                                                        </a>
-                                                    </div>
-
-                                                    <span className="badge bg-finance rounded-pill ms-auto">25</span>
-                                                </div>
-
-                                                <div className="social-share d-flex">
-                                                    <p className="me-4 text-white">Share:</p>
-
-                                                    <ul className="social-icon">
-                                                        <li className="social-icon-item">
-                                                            <a href="#" className="social-icon-link bi-twitter"></a>
-                                                        </li>
-
-                                                        <li className="social-icon-item">
-                                                            <a href="#" className="social-icon-link bi-facebook"></a>
-                                                        </li>
-
-                                                        <li className="social-icon-item">
-                                                            <a href="#" className="social-icon-link bi-pinterest"></a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <a href="#" className="custom-icon bi-bookmark ms-auto"></a>
-                                                </div>
-
-                                                <div className="section-overlay"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <Services services={services} />
                             </div>
 
                             <div className="tab-pane fade" id="music-tab-pane" role="tabpanel" aria-labelledby="music-tab" tabIndex="0">
-                                <div className="row">
-                                    <div className="col-lg-4 col-md-6 mb-lg-3 col-12 mb-4">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Composing Song</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-music rounded-pill ms-auto">45</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-9" />
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-4 col-md-6 mb-lg-3 col-12 mb-4">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Online Music</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-music rounded-pill ms-auto">45</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-10" />
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-4 col-md-6 col-12">
-                                        <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div className="d-flex">
-                                                    <div>
-                                                        <h5 className="mb-2">Podcast</h5>
-
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span className="badge bg-music rounded-pill ms-auto">20</span>
-                                                </div>
-
-                                                <ImageComponent id="explore-11" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <Alumni alumni={alumni} />
                             </div>
 
                             <div className="tab-pane fade" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabIndex="0">
                                 <div className="row">
                                     <div className="col-lg-6 col-md-6 mb-lg-3 col-12 mb-4">
                                         <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
+                                            <a>
                                                 <div className="d-flex">
                                                     <div>
                                                         <h5 className="mb-2">Graduation</h5>
 
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        <p className="mb-0">More than 20 students have been graduated. </p>
                                                     </div>
 
                                                     <span className="badge bg-education rounded-pill ms-auto">80</span>
@@ -362,12 +128,12 @@ const Explore = () => {
 
                                     <div className="col-lg-6 col-md-6 col-12">
                                         <div className="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
+                                            <a>
                                                 <div className="d-flex">
                                                     <div>
-                                                        <h5 className="mb-2">Educator</h5>
+                                                        <h5 className="mb-2">Physical Classes</h5>
 
-                                                        <p className="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        <p className="mb-0">Real time lessons on our comprehensive programs and expert guidance.</p>
                                                     </div>
 
                                                     <span className="badge bg-education rounded-pill ms-auto">75</span>

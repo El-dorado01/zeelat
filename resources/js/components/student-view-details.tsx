@@ -1,10 +1,13 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { Student } from '@/types';
 import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
+import { ScrollArea } from './ui/scroll-area';
 import { ViewDetailsContent } from './view-details-content';
-const StudentViewDetails = ({ student }: any) => {
+
+export const StudentViewDetails = ({ student }: { student: Student }) => {
     const [viewOpen, setViewOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -33,9 +36,11 @@ const StudentViewDetails = ({ student }: any) => {
                             <DrawerTitle className="text-lg font-bold">Student Details</DrawerTitle>
                             <DrawerDescription className="text-sm text-gray-500">View student information below.</DrawerDescription>
                         </DrawerHeader>
-                        <div className="py-4">
-                            <ViewDetailsContent student={student} />
-                        </div>
+                        <ScrollArea className="overflow-y-auto">
+                            <div className="py-4">
+                                <ViewDetailsContent student={student} setViewOpen={setViewOpen} />
+                            </div>
+                        </ScrollArea>
                         <DrawerFooter className="border-t pt-4">
                             <Button variant="outline" onClick={() => setViewOpen(false)}>
                                 Close
@@ -58,7 +63,7 @@ const StudentViewDetails = ({ student }: any) => {
                             <DialogTitle className="text-lg font-bold">Student Details</DialogTitle>
                             <DialogDescription className="text-sm text-gray-500">View student information below.</DialogDescription>
                         </DialogHeader>
-                        <ViewDetailsContent student={student} />
+                        <ViewDetailsContent student={student} setViewOpen={setViewOpen} />
                         <DialogFooter className="mt-6">
                             <Button variant="outline" onClick={() => setViewOpen(false)}>
                                 Close
@@ -71,4 +76,4 @@ const StudentViewDetails = ({ student }: any) => {
     );
 };
 
-export default StudentViewDetails;
+// export default StudentViewDetails;

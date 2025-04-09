@@ -1,12 +1,14 @@
-import { Contact, Enrollment, Student } from '@/types';
+import { Contact, Enrollment, ServiceRequest, Student } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 
+import { ArrowUpDown } from 'lucide-react';
 import { ContactActions } from './contact-actions';
 import { EnrollmentActions } from './enrollment-actions';
 import { formatRelativeDateTime } from './format-date';
-import { Button } from './ui/button';
-import { ArrowUpDown } from 'lucide-react';
+import MarkAsDone from './mark-as-done';
 import { StudentActions } from './student-actions';
+import { Button } from './ui/button';
+import ServiceRequestActions from './service-request-actions';
 
 export const enrollmentsColumns: ColumnDef<Enrollment>[] = [
     {
@@ -161,7 +163,86 @@ export const studentsColumns: ColumnDef<Student>[] = [
         id: 'actions',
         cell: ({ row }) => {
             const student = row.original;
+
             return <StudentActions student={student} />;
+        },
+    },
+];
+
+export const serviceRequestsColumns: ColumnDef<ServiceRequest>[] = [
+    {
+        accessorKey: 'customer_name',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Customer Name
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+    },
+    {
+        accessorKey: 'email',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Email
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+    },
+    {
+        accessorKey: 'phone_number',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Phone Number
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+    },
+    {
+        accessorKey: 'service_type',
+        header: 'Service Type',
+        cell: ({ row }) => {
+            const subject = row.getValue('service_type') as string;
+            const newSubject = subject.length > 30 ? subject.slice(0, 30) + '...' : subject;
+            return <div>{newSubject}</div>;
+        },
+    },
+    {
+        accessorKey: 'service_desc',
+        header: 'Service Description',
+        cell: ({ row }) => {
+            const message = row.getValue('service_desc') as string;
+            const newMessage = message.length > 50 ? message.slice(0, 50) + '...' : message;
+            return <div>{newMessage}</div>;
+        },
+    },
+    {
+        accessorKey: 'created_at',
+        header: () => <div>Received On</div>,
+        cell: ({ row }) => {
+            const createdAt = row.getValue('created_at') as string;
+            const formatted = formatRelativeDateTime(createdAt);
+            return <div className="font-medium">{formatted}</div>;
+        },
+    },
+    {
+        accessorKey: 'hasDone',
+        header: () => <div>Is Done</div>,
+        cell: ({ row }) => {
+            const serviceRequest = row.original;
+            return <MarkAsDone serviceRequest={serviceRequest} />;
+        },
+    },
+    {
+        id: 'actions',
+        cell: ({ row }) => {
+            const serviceRequest = row.original;
+            return <ServiceRequestActions serviceRequest={serviceRequest} />;
         },
     },
 ];

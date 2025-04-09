@@ -1,10 +1,10 @@
 // import AppLogoIcon from './app-logo-icon';
-import { AppLogoIcon } from "./page/Images";
+import { AppLogoIcon } from './page/Images';
 
 export default function AppLogo() {
     return (
         <>
-            <div className="border-2 border-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-md">
+            <div className="text-sidebar-primary-foreground flex aspect-square size-10 items-center justify-center rounded-md border-2 border-gray-300">
                 {/* <AppLogoIcon className="size-5 fill-current text-white dark:text-black" /> */}
                 <AppLogoIcon />
             </div>

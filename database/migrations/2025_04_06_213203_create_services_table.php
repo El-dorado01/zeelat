@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('site_settings', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->boolean('autoEnroll')->default(false);
-            $table->string('active_email');
+            $table->string('name')->unique();
+            $table->string('description');
+            $table->string('image');
+            $table->integer('service_count')->default(0);
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('site_settings');
+        Schema::dropIfExists('services');
     }
 };

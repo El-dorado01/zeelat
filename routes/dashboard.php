@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminEnrollmentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AlumniController;
+use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\ServiceRequestController;
 use App\Http\Controllers\Dashboard\SiteSettingsController;
 use App\Http\Controllers\Dashboard\StudentsController;
@@ -30,11 +31,20 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
  * ROUTES TO MANAGE ALUMNI
  */
 
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('page-builder/alumni', [AlumniController::class, 'index'])->name('alumni.index');
-    Route::post('page-builder/alumni', [AlumniController::class, 'store'])->name('alumni.store');
-    Route::put('page-builder/alumni', [AlumniController::class, 'update'])->name('alumni.update');
-    Route::delete('page-builder/alumni', [AlumniController::class, 'destroy'])->name('alumni.destroy');
+Route::middleware(['auth', 'verified', 'admin'])->prefix('page-builder/')->group(function () {
+    Route::get('alumni', [AlumniController::class, 'index'])->name('alumni.index');
+    Route::get('alumni/add', [AlumniController::class, 'create'])->name('alumni.create');
+    Route::post('alumni', [AlumniController::class, 'store'])->name('alumni.store');
+    Route::put('alumni', [AlumniController::class, 'update'])->name('alumni.update');
+    Route::patch('alumni/display', [AlumniController::class, 'displayOnHomePage'])->name('alumni.displayOnHomePage');
+    Route::delete('alumni/{alumni}', [AlumniController::class, 'destroy'])->name('alumni.destroy');
+
+    // Services
+    Route::get('services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('services/add', [ServiceController::class, 'create'])->name('services.create');
+    Route::post('services', [ServiceController::class, 'store'])->name('services.store');
+    Route::put('services/{service}', [ServiceController::class, 'update'])->name('services.update');
+    Route::delete('services/{service}', [ServiceController::class, 'destroy'])->name('services.delete');
 });
 
 /**
@@ -43,7 +53,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
  */
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('service-request', [ServiceRequestController::class, 'index'])->name('service_request.index');
-    Route::put('service-request', [ServiceRequestController::class, 'update'])->name('service_request.update');
+    Route::put('service-request/{serviceRequest}', [ServiceRequestController::class, 'update'])->name('service_request.update');
     Route::delete('service-request', [ServiceRequestController::class, 'destroy'])->name('service_request.destroy');
 });
 
@@ -54,7 +64,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
  */
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('site-settings', [SiteSettingsController::class, 'index'])->name('site_settings.index');
-    Route::put('site-settings', [SiteSettingsController::class, 'store'])->name('site_settings.update');
+    Route::post('site-settings', [SiteSettingsController::class, 'store'])->name('site_settings.store');
+    Route::patch('site-settings/{siteSettings}', [SiteSettingsController::class, 'update'])->name('site_settings.update');
 });
 
 /**
@@ -63,7 +74,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
  */
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('students', [StudentsController::class, 'index'])->middleware('admin')->name('students.index');
-    Route::patch('students/{id}', [StudentsController::class, 'update'])->middleware('admin')->name('students.update');
+    Route::patch('students/{student}', [StudentsController::class, 'update'])->middleware('admin')->name('students.update');
     Route::delete('students/{student}', [StudentsController::class, 'destroy'])->middleware('admin')->name('students.destroy');
 
     Route::get('students/complete-registration', [StudentsController::class, 'create'])->name('students.create');

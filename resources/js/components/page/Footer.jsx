@@ -1,12 +1,19 @@
-const Footer = () => {
+import { AppLogoIcon } from "./Images";
+
+const Footer = ({ site_settings }) => {
+    const getFullYear = () => {
+        return new Date().getFullYear()
+    }
     return (
         <footer className="site-footer section-padding">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-3 col-12 mb-4 pb-2">
-                        <a className="navbar-brand mb-2" href="index.html">
-                            <i className="bi-back"></i>
-                            <span>Topic</span>
+                        <a className="navbar-brand" href="/" style={{ display: 'flex', gap: '2px' }}>
+                            <div style={{ width: '45px', height: '40px' }}>
+                                <AppLogoIcon />
+                            </div>
+                            <span style={{ marginTop: '5px' }}>ZCA</span>
                         </a>
                     </div>
 
@@ -44,14 +51,14 @@ const Footer = () => {
                         <h6 className="site-footer-title mb-3">Information</h6>
 
                         <p className="d-flex mb-1 text-white">
-                            <a href="tel: 305-240-9671" className="site-footer-link">
-                                305-240-9671
+                            <a href="tel: 080-5192-9719" className="site-footer-link">
+                                080-5192-9719
                             </a>
                         </p>
 
                         <p className="d-flex text-white">
-                            <a href="mailto:info@company.com" className="site-footer-link">
-                                info@company.com
+                            <a href={site_settings ? site_settings.active_email : 'info@company.com'} className="site-footer-link">
+                                {site_settings ? site_settings.active_email : 'info@company.com'}
                             </a>
                         </p>
                     </div>
@@ -84,12 +91,12 @@ const Footer = () => {
                         </div>
 
                         <p className="copyright-text mt-lg-5 mt-4">
-                            Copyright © 2048 Topic Listing Center. All rights reserved.
+                            Copyright © { getFullYear() } Zeelat Computer Academy. All rights reserved.
                             <br />
                             <br />
-                            Design:{' '}
-                            <a rel="nofollow" href="https://templatemo.com" target="_blank">
-                                TemplateMo
+                            Coded:{' '}
+                            <a rel="nofollow" href="https://eldorado-iota.vercel.app" target="_blank">
+                                El Dorado
                             </a>
                         </p>
                     </div>

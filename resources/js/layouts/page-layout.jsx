@@ -6,13 +6,13 @@ import '#@/css/templatemo-topic-listing.css';
 import Footer from '../components/page/Footer';
 import NavBar from '../components/page/NavBar';
 
-const PageLayout = ({ children }) => {
+const PageLayout = ({ children, site_settings }) => {
     return (
         <>
             <main>
                 <NavBar />
                 {children}
-                <Footer />
+                <Footer site_settings={site_settings} />
             </main>
         </>
     );

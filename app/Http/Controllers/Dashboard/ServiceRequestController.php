@@ -18,7 +18,10 @@ class ServiceRequestController extends Controller
      */
     public function index()
     {
-        return Inertia::render('dashboard/service-request');
+        $serviceRequests = ServiceRequest::latest()->get();
+        return Inertia::render('dashboard/service-request', [
+            'serviceRequests' => $serviceRequests
+        ]);
     }
 
     /**
@@ -92,7 +95,7 @@ class ServiceRequestController extends Controller
             return redirect()->back()->with('success', $message);
             
         } catch (\Exception $e) {
-            throw new \Exception('Failed to delete enrollment: ' . $e->getMessage());
+            throw new \Exception('Failed to delete service request: ' . $e->getMessage());
         }
     }
 }

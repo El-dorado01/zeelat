@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('phone_number')->unique()->nullable();
             $table->string('graduated_on')->nullable();
             $table->text('remarks');
+            $table->string('image');
+            $table->boolean('isDisplayed')->default(false);
             $table->timestamps();
         });
     }

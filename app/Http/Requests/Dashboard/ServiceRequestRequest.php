@@ -11,7 +11,7 @@ class ServiceRequestRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class ServiceRequestRequest extends FormRequest
             'phone_number' => ['nullable', 'digits_between:1,14'],
             'service_type' => ['required', 'string', 'max:255'],
             'service_desc' => ['required', 'string'],
-            'hasDone' => ['required', 'boolean']
+            'hasDone' => ['sometimes', 'boolean']
         ];
     }
 }
