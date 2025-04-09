@@ -1,4 +1,4 @@
-import Alumni from './ALumni';
+import Alumni from './Alumni';
 import { ImageComponent } from './Images';
 import Services from './Services';
 
