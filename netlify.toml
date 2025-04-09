@@ -1,7 +1,7 @@
 [build]
   functions = "functions"
   publish = "public"
-  command = "composer install && php artisan optimize && npm install && npm run build && wget -q https://github.com/shivammathur/php-builder/releases/download/8.3/php_8.3+ubuntu24.04.tar.xz -O php.tar.xz && tar -xJf php.tar.xz && mv usr/bin/php8.3 functions/php && chmod +x functions/php && cp -r vendor bootstrap config app public routes functions/ || echo 'PHP download/extract failed'"
+  command = "composer install && echo 'Composer done' && php artisan optimize && echo 'Artisan done' && npm install && echo 'NPM install done' && npm run build && echo 'Build done' && wget -q https://github.com/shivammathur/php-builder/releases/download/8.3/php_8.3+ubuntu24.04.tar.xz -O php.tar.xz && echo 'Wget done' && tar -xJf php.tar.xz && echo 'Tar done' && mv usr/bin/php8.3 functions/php && echo 'Mv done' && chmod +x functions/php && echo 'Chmod done' && cp -r vendor bootstrap config app public routes functions/ && echo 'Copy done'"
 
 [[redirects]]
   from = "/*"
