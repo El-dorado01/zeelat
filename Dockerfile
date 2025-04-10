@@ -44,3 +44,7 @@ RUN chmod -R 755 /var/www/storage
 # Expose port
 EXPOSE 80
 
+# Start script
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+CMD ["/usr/local/bin/start.sh"]
