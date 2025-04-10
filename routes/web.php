@@ -9,6 +9,19 @@ use Inertia\Inertia;
 
 Route::get('/', HomeController::class)->name('home');
 
+Route::get('/debug', function () {
+    return 'Debug mode: ' . (config('app.debug') ? 'ON' : 'OFF');
+});
+
+Route::get('/migrate', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return 'Migrations completed successfully. Output: ' . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Exception $e) {
+        return 'Migration failed: ' . $e->getMessage() . ' | Stack: ' . $e->getTraceAsString();
+    }
+});
+
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('enrollments', [EnrollmentController::class, 'store'])->name('enrollment.store');
 
