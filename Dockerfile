@@ -39,7 +39,7 @@ COPY php.ini /usr/local/etc/php/php.ini
 
 # Run migrations
 COPY migrate.sh /usr/local/bin/migrate.sh
-RUN /usr/local/bin/migrate.sh
+RUN chmod +x /usr/local/bin/migrate.sh && /usr/local/bin/migrate.sh
 
 # Permissions
 RUN chown -R www-data:www-data /var/www
