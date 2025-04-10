@@ -13,6 +13,15 @@ Route::get('/debug', function () {
     return 'Debug mode: ' . (config('app.debug') ? 'ON' : 'OFF');
 });
 
+Route::get('/migrate', function () {
+    try {
+        \Artisan::call('migrate', ['--force' => true]);
+        return 'Migrations completed successfully';
+    } catch (\Exception $e) {
+        return 'Migration failed: ' . $e->getMessage();
+    }
+});
+
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('enrollments', [EnrollmentController::class, 'store'])->name('enrollment.store');
 
