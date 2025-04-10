@@ -15,10 +15,10 @@ Route::get('/debug', function () {
 
 Route::get('/migrate', function () {
     try {
-        \Artisan::call('migrate', ['--force' => true]);
-        return 'Migrations completed successfully';
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return 'Migrations completed successfully. Output: ' . \Illuminate\Support\Facades\Artisan::output();
     } catch (\Exception $e) {
-        return 'Migration failed: ' . $e->getMessage();
+        return 'Migration failed: ' . $e->getMessage() . ' | Stack: ' . $e->getTraceAsString();
     }
 });
 
