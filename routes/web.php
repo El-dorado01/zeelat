@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\Dashboard\ServiceRequestController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -40,3 +41,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
 require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
 require __DIR__.'/settings.php';
+
+
+Route::get('/seed-database/{token}', function ($token) {
+    if ($token === env('SEED_TOKEN', 'eldorado')) {
+        try {
+            Artisan::call('db:seed');
+            return response()->json([
+                'message' => 'Database seeded successfully!',
+                'output' => Artisan::output(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to seed database.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    return response()->json([
+        'error' => 'Invalid token.',
+    ], 403);
+});

@@ -51,6 +51,10 @@ body {
   font-family: var(--body-font-family); 
 }
 
+html {
+  font-size: 80%;
+}
+
 
 /*---------------------------------------
   TYPOGRAPHY               

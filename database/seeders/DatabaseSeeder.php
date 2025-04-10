@@ -27,9 +27,9 @@ class DatabaseSeeder extends Seeder
             'isAdmin' => true,
         ]);
 
-        Enrollment::factory(10)->create();
-        Student::factory(10)->create();
-        ServiceRequest::factory(10)->create();
-        Contact::factory(10)->create();
+        // Enrollment::factory(10)->create();
+        // Student::factory(10)->create();
+        // ServiceRequest::factory(10)->create();
+        // Contact::factory(10)->create();
     }
 }

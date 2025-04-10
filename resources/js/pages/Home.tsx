@@ -7,9 +7,13 @@ import Featured from '../components/page/Featured';
 import Hero from '../components/page/Hero';
 import Timeline from '../components/page/Timeline';
 import PageLayout from '../layouts/page-layout';
+import { type Services, type Alumni, type Site_Settings } from '@/types';
 
 export default function Home() {
-    const { props } = usePage();
+    const { alumni, site_settings, services } = usePage<{
+        services: Services;
+        site_settings: Site_Settings;
+    }>().props;
     
     useEffect(() => {
         import('../lib/jquery.min').then(() => {
@@ -22,17 +26,28 @@ export default function Home() {
             });
         });
     }, []);
+    // useEffect(() => {
+    //     Promise.all([
+    //         import('../lib/jquery.min'),
+    //         import('../lib/bootstrap.bundle.min'),
+    //         import('../lib/click-scroll'),
+    //         import('../lib/jquery.sticky'),
+    //         import('../lib/custom'),
+    //     ]).catch((error) => {
+    //         console.error('Failed to load scripts:', error);
+    //     });
+    // }, []);
 
     return (
         <>
-            <PageLayout title="This is a layout" site_settings={props.site_settings}>
+            <PageLayout site_settings={site_settings}>
                 <Head title="Home" />
                 <Hero />
                 <Featured />
-                <Explore alumni={props.alumni} services={props.services} />
+                <Explore alumni={alumni} services={services} />
                 <Timeline />
                 <Faq />
-                <Contact site_settings={props.site_settings} />
+                <Contact site_settings={site_settings} />
             </PageLayout>
         </>
     );
