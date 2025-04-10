@@ -37,6 +37,10 @@ RUN update-ca-certificates
 # Copy PHP config
 COPY php.ini /usr/local/etc/php/php.ini
 
+# Run migrations
+COPY migrate.sh /usr/local/bin/migrate.sh
+RUN /usr/local/bin/migrate.sh
+
 # Permissions
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/storage
