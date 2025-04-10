@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $settings = SiteSettings::first()->only([
             'active_email', 'site_logo'
-        ]);
+        ]) ?? [];
         return Inertia::render('Home', [
             'alumni' => Alumni::where('isDisplayed',operator: true)->get(),
             'services' => Service::all(),
