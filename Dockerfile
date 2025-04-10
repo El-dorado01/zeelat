@@ -30,6 +30,10 @@ RUN npm install && npm run build
 COPY nginx.conf /etc/nginx/sites-available/default
 RUN rm -f /etc/nginx/sites-enabled/default && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
+# Copy TiDB CA certificate
+COPY isrgrootx1.pem /usr/local/share/ca-certificates/tidb-root.crt
+RUN update-ca-certificates
+
 # Copy PHP config
 COPY php.ini /usr/local/etc/php/php.ini
 
