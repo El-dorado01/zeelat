@@ -1,5 +1,5 @@
 #!/bin/bash
-php artisan config:clear || echo "Config clear failed"
-php artisan route:clear || echo "Route clear failed"
-php-fpm -D
-nginx -g "daemon off;"
+echo "Starting PHP-FPM..."
+php-fpm -D || { echo "PHP-FPM failed to start"; exit 1; }
+echo "Starting Nginx..."
+nginx -g "daemon off;" || { echo "Nginx failed to start"; exit 1; }
