@@ -37,9 +37,9 @@ RUN update-ca-certificates
 # Copy PHP config
 COPY php.ini /usr/local/etc/php/php.ini
 
-# Run migrations
+# Run migrations with debug output
 COPY migrate.sh /usr/local/bin/migrate.sh
-RUN chmod +x /usr/local/bin/migrate.sh && /usr/local/bin/migrate.sh
+RUN chmod +x /usr/local/bin/migrate.sh && /usr/local/bin/migrate.sh || { echo "Migration failed: $(cat /var/www/storage/logs/laravel.log)"; exit 1; }
 
 # Permissions
 RUN chown -R www-data:www-data /var/www
