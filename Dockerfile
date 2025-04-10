@@ -30,6 +30,9 @@ RUN npm install && npm run build
 COPY nginx.conf /etc/nginx/sites-available/default
 RUN rm -f /etc/nginx/sites-enabled/default && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
+# Copy PHP config
+COPY php.ini /usr/local/etc/php/php.ini
+
 # Permissions
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/storage
