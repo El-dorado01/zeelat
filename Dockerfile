@@ -37,10 +37,6 @@ RUN update-ca-certificates
 # Copy PHP config
 COPY php.ini /usr/local/etc/php/php.ini
 
-# Run migrations with debug output
-COPY migrate.sh /usr/local/bin/migrate.sh
-RUN chmod +x /usr/local/bin/migrate.sh && /usr/local/bin/migrate.sh || { echo "Migration failed: $(cat /var/www/storage/logs/laravel.log)"; exit 1; }
-
 # Permissions
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/storage
@@ -48,7 +44,3 @@ RUN chmod -R 755 /var/www/storage
 # Expose port
 EXPOSE 80
 
-# Start script
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
-CMD ["/usr/local/bin/start.sh"]
