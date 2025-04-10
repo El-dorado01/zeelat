@@ -15,9 +15,7 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $settings = SiteSettings::first()->only([
-            'active_email', 'site_logo'
-        ]) ?? [];
+        $settings = SiteSettings::first()?->only(['active_email', 'site_logo']) ?? [];
         return Inertia::render('Home', [
             'alumni' => Alumni::where('isDisplayed',operator: true)->get(),
             'services' => Service::all(),
