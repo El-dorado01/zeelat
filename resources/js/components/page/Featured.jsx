@@ -1,7 +1,7 @@
 import { ImageComponent } from './Images';
 import SharedButtons from './SharedButtons';
 
-const Featured = () => {
+const Featured = ({ services, student_count }) => {
     return (
         <section className="featured-section">
             <div className="container">
@@ -13,10 +13,16 @@ const Featured = () => {
                                     <div>
                                         <h5 className="mb-2">Web Design</h5>
 
-                                        <p className="mb-0" style={{ fontSize: "16px" }}>Crafting digital experiences that amaze. Discover our web design services.</p>
+                                        <p className="mb-0" style={{ fontSize: '16px' }}>
+                                            Crafting digital experiences that amaze. Discover our web design services.
+                                        </p>
                                     </div>
 
-                                    <span className="badge bg-design rounded-pill ms-auto">14</span>
+                                    <span className="badge bg-design rounded-pill ms-auto">
+                                        {services.length > 0
+                                            ? services.map((service) => (service.name == 'Web Design' ? service.service_count : 14))
+                                            : 14}
+                                    </span>
                                 </div>
 
                                 <ImageComponent id="featured-1" />
@@ -33,18 +39,18 @@ const Featured = () => {
                                     <div>
                                         <h5 className="mb-2 text-white">Student Enrollment</h5>
 
-                                        <p className="text-white" style={{ fontSize: "16px"}}>
+                                        <p className="text-white" style={{ fontSize: '16px' }}>
                                             Unlock your potential: Enroll now and start your journey to academic excellence! Discover new
                                             opportunities, explore your passions, and achieve your goals with our comprehensive programs and expert
                                             guidance.
                                         </p>
 
-                                        <a href="topics-detail.html" className="btn custom-btn mt-lg-3 mt-2">
+                                        {/* <a href="topics-detail.html" className="btn custom-btn mt-lg-3 mt-2">
                                             Learn More
-                                        </a>
+                                        </a> */}
                                     </div>
 
-                                    <span className="badge bg-finance rounded-pill ms-auto">25</span>
+                                    <span className="badge bg-finance rounded-pill ms-auto">{student_count >=25 ? student_count: 25}</span>
                                 </div>
 
                                 <SharedButtons />

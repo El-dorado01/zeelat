@@ -122,22 +122,22 @@ export const studentsColumns: ColumnDef<Student>[] = [
             );
         },
     },
-    {
-        accessorKey: 'email',
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Email
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => {
-            const email = row.original.user.email;
+    // {
+    //     accessorKey: 'email',
+    //     header: ({ column }) => {
+    //         return (
+    //             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+    //                 Email
+    //                 <ArrowUpDown className="ml-2 h-4 w-4" />
+    //             </Button>
+    //         );
+    //     },
+    //     cell: ({ row }) => {
+    //         const email = row.original.user.email;
 
-            return <div className="font-medium">{`${email}`}</div>;
-        },
-    },
+    //         return <div className="font-medium">{`${email}`}</div>;
+    //     },
+    // },
     {
         accessorKey: 'gender',
         header: 'Gender',
@@ -203,15 +203,15 @@ export const serviceRequestsColumns: ColumnDef<ServiceRequest>[] = [
             );
         },
     },
-    {
-        accessorKey: 'service_type',
-        header: 'Service Type',
-        cell: ({ row }) => {
-            const subject = row.getValue('service_type') as string;
-            const newSubject = subject.length > 30 ? subject.slice(0, 30) + '...' : subject;
-            return <div>{newSubject}</div>;
-        },
-    },
+    // {
+    //     accessorKey: 'service_type',
+    //     header: 'Service Type',
+    //     cell: ({ row }) => {
+    //         const subject = row.getValue('service_type') as string;
+    //         const newSubject = subject.length > 30 ? subject.slice(0, 30) + '...' : subject;
+    //         return <div>{newSubject}</div>;
+    //     },
+    // },
     {
         accessorKey: 'service_desc',
         header: 'Service Description',

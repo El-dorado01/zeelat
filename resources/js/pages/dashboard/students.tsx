@@ -24,7 +24,7 @@ const Students = () => {
                     data={students}
                     defaultColumnVisibility={{
                         name: true,
-                        email: true,
+                        // email: true,
                         student_id: true,
                         actions: true,
                         created_at: true,

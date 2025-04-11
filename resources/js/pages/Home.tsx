@@ -10,12 +10,11 @@ import PageLayout from '../layouts/page-layout';
 import { type Services, type Alumni, type Site_Settings } from '@/types';
 
 export default function Home() {
-    const { alumni, site_settings, services } = usePage<{
+    const { alumni, site_settings, services, student_count } = usePage<{
         services: Services;
         site_settings: Site_Settings;
+        student_count: number;
     }>().props;
-
-    console.log(site_settings);
     
     
     useEffect(() => {
@@ -39,7 +38,7 @@ export default function Home() {
             <PageLayout site_settings={site_settings}>
                 <Head title="Home" />
                 <Hero />
-                <Featured />
+                <Featured services={services} student_count={student_count} />
                 <Explore alumni={alumni} services={services} />
                 <Timeline />
                 <Faq />

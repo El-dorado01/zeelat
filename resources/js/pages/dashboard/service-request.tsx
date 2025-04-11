@@ -1,7 +1,7 @@
 import { serviceRequestsColumns } from '@/components/columns';
 import { DataTable } from '@/components/ui/data-table';
 import AppLayout from '@/layouts/app-layout';
-import { type ServiceRequest, type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, type ServiceRequest } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { toast } from 'sonner';
 
@@ -13,7 +13,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const ServiceRequest = () => {
-    const { serviceRequests, flash } = usePage<{ serviceRequests: ServiceRequest[]; flash: any }>().props;
+    const { serviceRequests, flash } = usePage<{
+        serviceRequests: ServiceRequest[];
+        flash: any;
+    }>().props;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -25,12 +28,12 @@ const ServiceRequest = () => {
                     defaultColumnVisibility={{
                         customer_name: true,
                         email: true,
-                        service_type: true,
+                        // service_type: true,
                         created_at: true,
                         actions: true,
                         service_desc: false,
                         phone_number: false,
-                        hasDone: false
+                        hasDone: false,
                     }}
                 />
             </div>

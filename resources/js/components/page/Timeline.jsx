@@ -19,7 +19,7 @@ const Timeline = () => {
                                 <li>
                                     <h4 className="mb-3 text-white">Submit your Email</h4>
 
-                                    <p className="text-white">
+                                    <p className="text-white" style={{ fontSize: '16px', lineHeight: '2rem' }}>
                                         Get started by submitting your email address. This will initiate the enrollment process, and you'll receive a
                                         confirmation message with further instructions. Please ensure you provide a valid email to receive important
                                         updates.
@@ -33,7 +33,7 @@ const Timeline = () => {
                                 <li>
                                     <h4 className="mb-3 text-white">Check Email for Approval Message</h4>
 
-                                    <p className="text-white">
+                                    <p className="text-white" style={{ fontSize: '16px', lineHeight: '2rem' }}>
                                         After submitting your email, check your inbox for an approval message from us. This message will contain a
                                         link to verify your email address and proceed with the enrollment process. Please check your spam folder if
                                         you don't see it.
@@ -47,7 +47,7 @@ const Timeline = () => {
                                 <li>
                                     <h4 className="mb-3 text-white">Complete your Registration</h4>
 
-                                    <p className="text-white">
+                                    <p className="text-white" style={{ fontSize: '16px', lineHeight: '2rem' }}>
                                         Once you've verified your email address, you'll be able to login with your credentials to complete the
                                         registration process. Fill out the required information, set up your account and you're ready to go!
                                     </p>
