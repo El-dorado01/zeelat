@@ -14,6 +14,9 @@ export default function Home() {
         services: Services;
         site_settings: Site_Settings;
     }>().props;
+
+    console.log(site_settings);
+    
     
     useEffect(() => {
         const loadScripts = async () => {
@@ -22,7 +25,7 @@ export default function Home() {
                 await import('../lib/click-scroll.js');
                 await import('../lib/jquery.sticky.js');
                 await import('../lib/custom.js');
-                console.log('Scripts loaded successfully');
+                // console.log('Scripts loaded successfully');
             } catch (error) {
                 console.error('Failed to load scripts:', error);
             }
@@ -30,28 +33,6 @@ export default function Home() {
 
         loadScripts();
     }, []);
-    // useEffect(() => {
-    //     import('../lib/jquery.min').then(() => {
-    //         import('../lib/bootstrap.bundle.min').then(() => {
-    //             import('../lib/click-scroll').then(() => {
-    //                 import('../lib/jquery.sticky').then(() => {
-    //                     import('../lib/custom').then(() => {});
-    //                 });
-    //             });
-    //         });
-    //     });
-    // }, []);
-    // useEffect(() => {
-    //     Promise.all([
-    //         import('../lib/jquery.min'),
-    //         import('../lib/bootstrap.bundle.min'),
-    //         import('../lib/click-scroll'),
-    //         import('../lib/jquery.sticky'),
-    //         import('../lib/custom'),
-    //     ]).catch((error) => {
-    //         console.error('Failed to load scripts:', error);
-    //     });
-    // }, []);
 
     return (
         <>

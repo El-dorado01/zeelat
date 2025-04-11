@@ -29,8 +29,8 @@ const Contact = ({ site_settings }) => {
                         <p className="d-flex align-items-center">
                             <span className="me-2">Email</span>
 
-                            <a href={site_settings ? site_settings.active_email : 'info@company.com'} className="site-footer-link">
-                                {site_settings ? site_settings.active_email : 'info@company.com'}
+                            <a href={site_settings.length > 0 ? site_settings.active_email : 'info@company.com'} className="site-footer-link">
+                                {site_settings.length > 0 ? site_settings.active_email : 'info@company.com'}
                             </a>
                         </p>
                     </div>
