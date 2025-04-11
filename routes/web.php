@@ -6,6 +6,8 @@ use App\Http\Controllers\Dashboard\ServiceRequestController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 Route::get('/', HomeController::class)->name('home');
@@ -54,6 +56,35 @@ Route::get('/seed-database/{token}', function ($token) {
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Failed to seed database.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    return response()->json([
+        'error' => 'Invalid token.',
+    ], 403);
+});
+
+Route::get('/create-test-user/{token}', function ($token) {
+    if ($token === env('SEED_TOKEN', 'eldorado')) {
+        try {
+            $user = User::create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => Hash::make('password'),
+                'avatar' => 'https://zeelatcomputeracademy.onrender.com/build/assets/appLogo-Br6aAksU.png', // Replace with a real URL if desired
+                'isAdmin' => true,
+                'email_verified_at' => now(), // Marks email as verified
+            ]);
+
+            return response()->json([
+                'message' => 'Test user created successfully!',
+                'user' => $user,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to create test user.',
                 'message' => $e->getMessage(),
             ], 500);
         }

@@ -10,7 +10,7 @@ const PageLayout = ({ children, site_settings }) => {
     return (
         <>
             <main>
-                <NavBar />
+                {/* <NavBar /> */}
                 {children}
                 <Footer site_settings={site_settings} />
             </main>
