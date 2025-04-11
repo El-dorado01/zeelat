@@ -16,16 +16,31 @@ export default function Home() {
     }>().props;
     
     useEffect(() => {
-        import('../lib/jquery.min').then(() => {
-            import('../lib/bootstrap.bundle.min').then(() => {
-                import('../lib/click-scroll').then(() => {
-                    import('../lib/jquery.sticky').then(() => {
-                        import('../lib/custom').then(() => {});
-                    });
-                });
-            });
-        });
+        const loadScripts = async () => {
+            try {
+                await import('../lib/bootstrap.bundle.min.js');
+                await import('../lib/click-scroll.js');
+                await import('../lib/jquery.sticky.js');
+                await import('../lib/custom.js');
+                console.log('Scripts loaded successfully');
+            } catch (error) {
+                console.error('Failed to load scripts:', error);
+            }
+        };
+
+        loadScripts();
     }, []);
+    // useEffect(() => {
+    //     import('../lib/jquery.min').then(() => {
+    //         import('../lib/bootstrap.bundle.min').then(() => {
+    //             import('../lib/click-scroll').then(() => {
+    //                 import('../lib/jquery.sticky').then(() => {
+    //                     import('../lib/custom').then(() => {});
+    //                 });
+    //             });
+    //         });
+    //     });
+    // }, []);
     // useEffect(() => {
     //     Promise.all([
     //         import('../lib/jquery.min'),

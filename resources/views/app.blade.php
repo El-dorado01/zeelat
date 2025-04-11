@@ -46,6 +46,9 @@
         <link rel="manifest" href="{{ asset('site.webmanifest') }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"> <!-- Optional fallback -->
 
+        <!-- Load jQuery -->
+        <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
+        
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
