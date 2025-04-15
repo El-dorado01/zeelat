@@ -1,6 +1,14 @@
 import { type NavItem } from '@/types';
 import { Contact, Folder, GraduationCap, HandHelping, LayoutGrid, ShieldCheck, UserRoundPlus, Wrench } from 'lucide-react';
 
+const userNavItems: NavItem[] = [
+    {
+        title: 'Dashboard',
+        href: '/dashboard',
+        icon: LayoutGrid,
+    }
+];
+
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
@@ -50,4 +58,4 @@ const footerNavItems: NavItem[] = [
     },
 ];
 
-export { footerNavItems, mainNavItems, studentNavItems };
+export { footerNavItems, mainNavItems, studentNavItems, userNavItems };

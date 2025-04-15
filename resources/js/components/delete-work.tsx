@@ -1,13 +1,13 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
-import { FormErrors, type Service } from '@/types';
+import { FormErrors, type Work } from '@/types';
 import { LoaderCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { useDelete } from './useDelete';
 
-const DeleteService = ({ service }: { service: Service }) => {
+const DeleteWork = ({ work }: { work: Work }) => {
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -19,7 +19,7 @@ const DeleteService = ({ service }: { service: Service }) => {
         return () => mediaQuery.removeEventListener('change', handleResize);
     }, []);
 
-    const { handleDelete, deleteProcessing, deleteErrors } = useDelete(route('services.delete', service.id), {
+    const { handleDelete, deleteProcessing, deleteErrors } = useDelete(route('works.delete', work.id), {
         onSuccess: () => {
             setDeleteOpen(false);
         },
@@ -30,15 +30,15 @@ const DeleteService = ({ service }: { service: Service }) => {
         },
     });
 
-    const handleDeleteService = () => {
+    const handleDeleteWork = () => {
         setDeleteOpen(true);
-    }
+    };
 
     return (
         <>
             {isMobile ? (
                 <Drawer open={deleteOpen} onOpenChange={setDeleteOpen}>
-                    <Button className="w-full transition duration-300" variant="destructive" onClick={handleDeleteService}>
+                    <Button className="w-full transition duration-300" variant="destructive" onClick={handleDeleteWork}>
                         Delete
                     </Button>
 
@@ -46,7 +46,7 @@ const DeleteService = ({ service }: { service: Service }) => {
                         <DrawerHeader>
                             <DrawerTitle>Are you sure?</DrawerTitle>
                             <DrawerDescription>
-                                This action cannot be undone. This will permanently delete <strong>{service.name}</strong> from the system.
+                                This action cannot be undone. This will permanently delete <strong>{work.work_title}</strong> from the system.
                             </DrawerDescription>
                         </DrawerHeader>
 
@@ -54,7 +54,7 @@ const DeleteService = ({ service }: { service: Service }) => {
                             <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                 {deleteProcessing ? (
                                     <>
-                                        <LoaderCircle className="mr-1 animate-spin" />
+                                        <LoaderCircle className="animate-spin" />
                                         Deleting
                                     </>
                                 ) : (
@@ -66,7 +66,7 @@ const DeleteService = ({ service }: { service: Service }) => {
                 </Drawer>
             ) : (
                 <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
-                    <Button className="w-full transition duration-300" variant="destructive" onClick={handleDeleteService}>
+                    <Button className="w-full transition duration-300" variant="destructive" onClick={handleDeleteWork}>
                         Delete
                     </Button>
 
@@ -74,7 +74,7 @@ const DeleteService = ({ service }: { service: Service }) => {
                         <DialogHeader>
                             <DialogTitle>Are you absolutely sure?</DialogTitle>
                             <DialogDescription>
-                                This action cannot be undone. This will permanently delete <strong>{service.name}</strong> from the system.
+                                This action cannot be undone. This will permanently delete <strong>{work.work_title}</strong> from the system.
                             </DialogDescription>
                         </DialogHeader>
 
@@ -82,7 +82,7 @@ const DeleteService = ({ service }: { service: Service }) => {
                             <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                 {deleteProcessing ? (
                                     <>
-                                        <LoaderCircle className="mr-1 animate-spin" />
+                                        <LoaderCircle className="animate-spin" />
                                         Deleting
                                     </>
                                 ) : (
@@ -97,4 +97,4 @@ const DeleteService = ({ service }: { service: Service }) => {
     );
 };
 
-export default DeleteService;
+export default DeleteWork;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\Dashboard\ServiceRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\WorkRequest;
 use App\Models\Alumni;
 use App\Models\Service;
 use App\Models\Work;
@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
-class ServiceController extends Controller
+class WorkController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('dashboard/services', [
+        return Inertia::render('dashboard/works', [
             'alumni' => fn () => Alumni::latest()->paginate(5),
             'services' => fn () => Service::latest()->paginate(5),
             'works' => fn () => Work::latest()->paginate(5),
@@ -31,7 +31,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return Inertia::render('dashboard/add-services', [
+        return Inertia::render('dashboard/add-works', [
             'alumni' => fn () => Alumni::latest()->paginate(5),
             'services' => fn () => Service::latest()->paginate(5),
             'works' => fn () => Work::latest()->paginate(5),
@@ -41,7 +41,7 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ServiceRequest $request)
+    public function store(WorkRequest $request)
     {
         DB::transaction(function () use ($request) {
             try {
@@ -49,24 +49,24 @@ class ServiceController extends Controller
 
                 // Handle file upload if provided
                 if ($request->hasFile('image')) {
-                    $validated['image'] = $request->file('image')->store('services-images', 'public');
+                    $validated['image'] = $request->file('image')->store('works-images', 'public');
                 }
 
                 // Create the alumni record
-                Service::create($validated);
+                Work::create($validated);
 
             } catch (\Exception $e) {
-                throw new \Exception('Failed to add to service: ' . $e->getMessage());
+                throw new \Exception('Failed to add to work: ' . $e->getMessage());
             }
         });
 
-        return redirect()->back()->with('success', 'A new service has been added successfully!');
+        return redirect()->back()->with('success', 'A new work has been added successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Service $service)
+    public function show(Work $work)
     {
         //
     }
@@ -74,7 +74,7 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Service $service)
+    public function edit(Work $work)
     {
         //
     }
@@ -82,51 +82,51 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ServiceRequest $request, Service $service)
+    public function update(WorkRequest $request, Work $work)
     {
-        DB::transaction(function () use ($request, $service) {
+        DB::transaction(function () use ($request, $work) {
             try {
                 // Get validated data
                 $data = $request->validated();
 
                 if ($request->hasFile('image')) {
                     // Delete old image if it exists
-                    if ($service->image) {
-                        Storage::disk('public')->delete($service->image);
+                    if ($work->image) {
+                        Storage::disk('public')->delete($work->image);
                     }
                     // Store new image and update path
-                    $data['image'] = $request->file('image')->store('services-images', 'public');
+                    $data['image'] = $request->file('image')->store('works-images', 'public');
                 }
 
-                $service->update($data);
+                $work->update($data);
 
             } catch (\Exception $e) {
-                throw new \Exception('Failed to update service: ' . $e->getMessage());
+                throw new \Exception('Failed to update work: ' . $e->getMessage());
             }
         });
 
-        return redirect()->back()->with('success', 'Service information updated successfully!');
+        return redirect()->back()->with('success', 'Work information updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function destroy(Work $work)
     {
-        DB::transaction(function () use ($service) {
+        DB::transaction(function () use ($work) {
             try {
-                $message = "Service has been removed!";
+                $message = "Work has been removed!";
         
                 // Delete old image if it exists
-                if ($service->image) {
-                    Storage::disk('public')->delete($service->image);
+                if ($work->image) {
+                    Storage::disk('public')->delete($work->image);
                 }
                 
-                $service->delete();
+                $work->delete();
                 return redirect()->back()->with('success', $message);
                 
             } catch (\Exception $e) {
-                throw new \Exception('Failed to delete service: ' . $e->getMessage());
+                throw new \Exception('Failed to delete work: ' . $e->getMessage());
             }
         });
     }

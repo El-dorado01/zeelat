@@ -89,7 +89,7 @@ const AlumniDelete = ({ alumnus }: { alumnus: Alumni }) => {
                             <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                 {deleteProcessing ? (
                                     <>
-                                        <LoaderCircle className="mr-2 animate-spin" />
+                                        <LoaderCircle className="mr-1 animate-spin" />
                                         Removing
                                     </>
                                 ) : (

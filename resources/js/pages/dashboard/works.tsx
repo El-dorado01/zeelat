@@ -1,8 +1,8 @@
 import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
-import { PaginatedResponse, type Service, type Alumni, type BreadcrumbItem, type Work } from '@/types';
+import { PaginatedResponse, type Alumni, type BreadcrumbItem, type Service, type Work } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'; // Add useState and useEffect
 import { toast } from 'sonner';
 
 import ShowAlumni from '@/components/show-alumni';
@@ -17,7 +17,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const Alumni = () => {
+const Works = () => {
     const { alumni, services, works, flash } = usePage<{
         alumni: PaginatedResponse<Alumni>;
         services: PaginatedResponse<Service>;
@@ -40,15 +40,10 @@ const Alumni = () => {
         }
     }, [flash, displayedFlash]);
 
-    // Set initial tab based on URL
-    const getInitialTab = () => {
-        return window.location.pathname === '/page-builder/services'
-            ? 'services'
-            : window.location.pathname === '/page-builder/works'
-              ? 'works'
-              : 'alumni';
-    };
-    const [activeTab, setActiveTab] = useState(getInitialTab());
+    // Determine initial tab based on URL
+    const initialTab =
+        window.location.pathname === '/page-builder/services' ? 'services' : window.location.pathname === '/page-builder/works' ? 'works' : 'alumni';
+    const [activeTab, setActiveTab] = useState(initialTab);
 
     // Update URL when tab changes
     const handleTabChange = (value: string) => {
@@ -104,4 +99,4 @@ const Alumni = () => {
     );
 };
 
-export default Alumni;
+export default Works;

@@ -4,7 +4,7 @@ import { CircleOff } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import AlumniDelete from './alumni-delete';
-import { ALumniViewDetails } from './alumnus-show';
+import { AlumniViewDetails } from './alumnus-show';
 import { Card, CardContent, CardFooter } from './ui/card';
 import { Switch } from './ui/switch';
 import { usePost } from './usePost';
@@ -27,10 +27,10 @@ const ShowAlumni = ({ alumni }: { alumni: Alumni[] }) => {
 
     const initialData = {
         id: '',
-        isDisplayed: false,
+        isDisplayed: 0,
     };
     const { handleRequest, processing, errors, data, setData } = usePost(
-        '/page-builder/alumni/display',
+        route('alumni.displayOnHomePage'),
         initialData,
         {
             onError: (errors: FormErrors) => {
@@ -38,33 +38,35 @@ const ShowAlumni = ({ alumni }: { alumni: Alumni[] }) => {
                 const errorMessage = Array.isArray(firstError) ? firstError[0] : firstError;
                 toast.error(errorMessage || 'An error occurred');
 
-                // Revert local state on error
-                setAlumniArray(alumniArray.map((a) => (a.id === data.id ? { ...a, isDisplayed: !a.isDisplayed } : a)));
+                // // Revert local state on error
+                // setAlumniArray(alumniArray.map((a) => (a.id === data.id ? { ...a, isDisplayed: !a.isDisplayed } : a)));
             },
         },
         'PATCH',
     );
 
     const handleDisplayAlumni = (alumnus: Alumni) => {
-        setAlumniArray(alumniArray.map((a) => (a.id === alumnus.id ? { ...a, isDisplayed: !a.isDisplayed } : a)));
+        // setAlumniArray(alumniArray.map((a) => (a.id === alumnus.id ? { ...a, isDisplayed: !a.isDisplayed } : a)));
 
         const newIsDisplayed = !alumnus.isDisplayed;
         setData('id', alumnus.id);
         setData('isDisplayed', newIsDisplayed);
-
+        
+        // handleRequest();
         handleRequest({ id: alumnus.id, isDisplayed: newIsDisplayed });
     };
     return (
         <PageBuilderLayout sidebarNavItems={sidebarNavItems} title="List Alumni" description="This page displays and manages all the alumni">
             <div className="container mx-auto">
-                {alumniArray.length > 0 ? (
+                {alumni.length > 0 ? (
                     <>
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3">
-                            {alumniArray.map((alumnus) => (
+                            {alumni.map((alumnus) => (
                                 <Card key={alumnus.id} className="relative flex w-full flex-col">
                                     <Switch
                                         className="absolute top-3 right-3 data-[state=checked]:bg-blue-500 data-[state=unchecked]:bg-gray-300"
                                         title="Toggle Display"
+                                        value={data.isDisplayed}
                                         checked={alumnus.isDisplayed}
                                         onCheckedChange={() => handleDisplayAlumni(alumnus)}
                                         disabled={processing}
@@ -83,7 +85,7 @@ const ShowAlumni = ({ alumni }: { alumni: Alumni[] }) => {
                                         </div>
                                     </CardContent>
                                     <CardFooter className="flex flex-col justify-between space-y-2 p-4">
-                                        <ALumniViewDetails alumnus={alumnus} />
+                                        <AlumniViewDetails alumnus={alumnus} />
                                         <AlumniDelete alumnus={alumnus} />
                                     </CardFooter>
                                 </Card>

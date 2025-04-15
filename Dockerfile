@@ -39,12 +39,16 @@ COPY php.ini /usr/local/etc/php/php.ini
 
 # Permissions
 RUN chown -R www-data:www-data /var/www
-RUN chmod -R 755 /var/www/storage
+RUN chmod -R 775 /var/www/storage
+RUN chmod -R 775 /var/www/bootstrap/cache
+
+# Copy and configure scripts
+COPY migrate.sh /usr/local/bin/migrate.sh
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/migrate.sh /usr/local/bin/start.sh
 
 # Expose port
 EXPOSE 80
 
-# Start script
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
+# Start container
 CMD ["/usr/local/bin/start.sh"]

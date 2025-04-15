@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
-import { FormErrors, type Service } from '@/types';
+import { FormErrors, type Work } from '@/types';
 import { Edit, LoaderCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -10,55 +10,43 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { usePost } from './usePost';
+
 // Define form data type
-interface ServiceFormData {
-  name: string;
-  service_count: number;
-  description: string;
+interface WorkFormData {
+  work_title: string;
+  work_desc: string;
   image: File | string | null;
+  work_url: string;
   _method: 'PUT';
 }
 
 // Define props interface
-interface EditServiceFormProps {
-  data: ServiceFormData;
-  setData: (key: keyof ServiceFormData, value: ServiceFormData[keyof ServiceFormData]) => void;
+interface EditWorkFormProps {
+  data: WorkFormData;
+  setData: (key: keyof WorkFormData, value: WorkFormData[keyof WorkFormData]) => void;
   errors: FormErrors;
   processing: boolean;
-  handleEditService: () => void;
+  handleEditWork: () => void;
 }
 
-const EditServiceForm = ({ data, setData, errors, processing, handleEditService }: EditServiceFormProps) => (
+const EditWorkForm = ({ data, setData, errors, processing, handleEditWork }: EditWorkFormProps) => (
     <div className="container mx-auto">
         <Card className="w-full">
             <CardContent className="flex flex-col space-y-2">
                 <div>
-                    <Label htmlFor="name">Service Name</Label>
+                    <Label htmlFor="name">Work Name</Label>
                     <Input
                         id="name"
-                        placeholder="Enter service name"
+                        placeholder="Enter work name"
                         required
-                        value={data.name || ''}
-                        onChange={(e) => setData('name', e.target.value)}
+                        value={data.work_title || ''}
+                        onChange={(e) => setData('work_title', e.target.value)}
                         className="mt-1 w-full"
                     />
-                    {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+                    {errors.work_title && <p className="mt-1 text-sm text-red-500">{errors.work_title}</p>}
                 </div>
                 <div>
-                    <Label htmlFor="service_count">Service Count</Label>
-                    <Input
-                        id="service_count"
-                        placeholder="Enter service count"
-                        required
-                        type="number"
-                        value={data.service_count}
-                        onChange={(e) => setData('service_count', e.target.value)}
-                        className="mt-1 w-full"
-                    />
-                    {errors.service_count && <p className="mt-1 text-sm text-red-500">{errors.service_count}</p>}
-                </div>
-                <div>
-                    <Label htmlFor="image">Service Image</Label>
+                    <Label htmlFor="image">Work Image</Label>
                     <Input
                         id="image"
                         type="file"
@@ -70,19 +58,31 @@ const EditServiceForm = ({ data, setData, errors, processing, handleEditService 
                     {errors.image && <p className="mt-1 text-sm text-red-500">{errors.image}</p>}
                 </div>
                 <div>
+                    <Label htmlFor="image">Work URL</Label>
+                    <Input
+                        id="image"
+                        type="url"
+                        placeholder="https:// (optional)"
+                        onChange={(e) => setData('work_url', e.target.value)}
+                        className="mt-1 w-full"
+                    />
+                    {errors.work_url && <p className="mt-1 text-sm text-red-500">{errors.work_url}</p>}
+                </div>
+                <div>
                     <Label htmlFor="description">Description</Label>
                     <Textarea
                         id="description"
-                        placeholder="Enter service description..."
-                        value={data.description || ''}
-                        onChange={(e) => setData('description', e.target.value)}
+                        placeholder="Enter work description..."
+                        required
+                        value={data.work_desc || ''}
+                        onChange={(e) => setData('work_desc', e.target.value)}
                         className="mt-1 min-h-[100px] w-full"
                     />
-                    {errors.description && <p className="mt-1 text-sm text-red-500">{errors.description}</p>}
+                    {errors.work_desc && <p className="mt-1 text-sm text-red-500">{errors.work_desc}</p>}
                 </div>
             </CardContent>
             <CardFooter>
-                <Button className="w-full" disabled={processing} onClick={handleEditService}>
+                <Button className="w-full" disabled={processing} onClick={handleEditWork}>
                     {processing ? (
                         <>
                             <LoaderCircle className="mr-1 animate-spin" />
@@ -99,7 +99,7 @@ const EditServiceForm = ({ data, setData, errors, processing, handleEditService 
     </div>
 );
 
-const ServiceEdit = ({ service }: { service: Service }) => {
+const WorkEdit = ({ work }: { work: Work }) => {
     const [editOpen, setEditOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -112,16 +112,15 @@ const ServiceEdit = ({ service }: { service: Service }) => {
     }, []);
 
     const initialEditData = {
-        name: service.name || '',
-        service_count: service.service_count,
-        description: service.description || '',
-        image: service.image || '',
+        work_title: work.work_title || '',
+        work_desc: work.work_desc || '',
+        image: work.image || '',
+        work_url: work.work_url || '',
         _method: 'PUT',
     };
-    
 
     const { handleRequest, processing, errors, data, setData } = usePost(
-        route('services.update',service.id),
+        route('works.update', work.id),
         initialEditData,
         {
             onSuccess: () => {
@@ -132,16 +131,13 @@ const ServiceEdit = ({ service }: { service: Service }) => {
                 const errorMessage = Array.isArray(firstError) ? firstError[0] : firstError;
                 toast.error(errorMessage || 'An error occurred');
             },
-            forceFormData: true, // Required for file uploads
         },
         'POST',
     );
 
-    const handleEditService = () => {
+    const handleEditWork = () => {
         handleRequest(data);
     };
-
-    
 
     return (
         <>
@@ -150,42 +146,30 @@ const ServiceEdit = ({ service }: { service: Service }) => {
                 <Drawer open={editOpen} onOpenChange={setEditOpen}>
                     <DrawerTrigger asChild>
                         <Button className="w-full">
-                            <Edit /> Edit Service
+                            <Edit /> Edit Work
                         </Button>
                     </DrawerTrigger>
                     <DrawerContent>
                         <DrawerHeader>
-                            <DrawerTitle>Edit Service</DrawerTitle>
-                            <DrawerDescription>Update the service's details below.</DrawerDescription>
+                            <DrawerTitle>Edit Work</DrawerTitle>
+                            <DrawerDescription>Update the work's details below.</DrawerDescription>
                         </DrawerHeader>
-                        <EditServiceForm
-                            data={data}
-                            setData={setData}
-                            errors={errors}
-                            processing={processing}
-                            handleEditService={handleEditService}
-                        />
+                        <EditWorkForm data={data} setData={setData} errors={errors} processing={processing} handleEditWork={handleEditWork} />
                     </DrawerContent>
                 </Drawer>
             ) : (
                 <Dialog open={editOpen} onOpenChange={setEditOpen}>
                     <DialogTrigger asChild>
                         <Button className="w-full">
-                            <Edit /> Edit Service
+                            <Edit /> Edit Work
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="max-h-[80vh] overflow-y-auto">
                         <DialogHeader>
-                            <DialogTitle>Edit Service</DialogTitle>
-                            <DialogDescription>Update the service’s details below.</DialogDescription>
+                            <DialogTitle>Edit Work</DialogTitle>
+                            <DialogDescription>Update the work's details below.</DialogDescription>
                         </DialogHeader>
-                        <EditServiceForm
-                            data={data}
-                            setData={setData}
-                            errors={errors}
-                            processing={processing}
-                            handleEditService={handleEditService}
-                        />
+                        <EditWorkForm data={data} setData={setData} errors={errors} processing={processing} handleEditWork={handleEditWork} />
                     </DialogContent>
                 </Dialog>
             )}
@@ -193,4 +177,4 @@ const ServiceEdit = ({ service }: { service: Service }) => {
     );
 };
 
-export default ServiceEdit;
+export default WorkEdit;

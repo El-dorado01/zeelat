@@ -167,7 +167,7 @@ export const ContactActions = <T extends { id: number; email: string; name?: str
                                     <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                         {deleteProcessing ? (
                                             <>
-                                                <LoaderCircle className="mr-2 animate-spin" />
+                                                <LoaderCircle className="mr-1 animate-spin" />
                                                 Deleting
                                             </>
                                         ) : (
@@ -201,7 +201,7 @@ export const ContactActions = <T extends { id: number; email: string; name?: str
                                     <Button variant="destructive" onClick={handleDelete} disabled={deleteProcessing}>
                                         {deleteProcessing ? (
                                             <>
-                                                <LoaderCircle className="mr-2 animate-spin" />
+                                                <LoaderCircle className="mr-1 animate-spin" />
                                                 Deleting
                                             </>
                                         ) : (

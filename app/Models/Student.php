@@ -14,6 +14,7 @@ class Student extends Model
         'last_name',
         'other_name',
         'gender',
+        'date_of_birth',
         'phone_number',
         'student_id',
         'address',
@@ -21,7 +22,8 @@ class Student extends Model
         'next_of_kin_email',
         'relationship',
         'image',
-        'isAlumni'
+        'isAlumni',
+        'user_id'
     ];
 
     public function getUsername(){

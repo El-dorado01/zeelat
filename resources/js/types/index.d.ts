@@ -46,7 +46,7 @@ export interface Enrollment {
     email: string;
     created_at: string;
     updated_at: string;
-};
+}
 
 // Type for paginated response
 // export interface PaginatedResponse<T> {
@@ -91,7 +91,7 @@ export interface Contact {
     created_at: string;
     updated_at: string;
     [key: string]: any;
-};
+}
 
 export interface Student {
     id: number;
@@ -143,7 +143,7 @@ export interface Alumni {
     [key: string]: any;
 }
 
-export interface Services {
+export interface Service {
     id: number;
     name: string;
     description: string;
@@ -154,11 +154,23 @@ export interface Services {
     [key: string]: any;
 }
 
-export interface Site_Settings {
+export interface Site_Setting {
     id: number;
     auto_enroll: boolean;
     active_email: string;
     site_logo: string;
+    created_at: string;
+    updated_at: string;
+    [key: string]: any;
+}
+
+export interface Work {
+    id: number;
+    work_title: string;
+    work_desc: string;
+    image: string;
+    work_url: string;
+    service_id: number;
     created_at: string;
     updated_at: string;
     [key: string]: any;

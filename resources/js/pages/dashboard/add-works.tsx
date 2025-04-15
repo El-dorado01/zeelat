@@ -1,14 +1,16 @@
 import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
-import { PaginatedResponse, type Service, type Alumni, type BreadcrumbItem, type Work } from '@/types';
+import { PaginatedResponse, type Alumni, type BreadcrumbItem, type Service, type Work } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import ShowAlumni from '@/components/show-alumni';
+import AddAlumnus from '@/components/add-alumnus';
 import ShowServices from '@/components/show-services';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ShowWorks from '@/components/show-works';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useEffect, useState } from 'react';
+import ShowAlumni from '@/components/show-alumni';
+import AddWork from '@/components/add-work';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -17,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const Alumni = () => {
+const AddWorks = () => {
     const { alumni, services, works, flash } = usePage<{
         alumni: PaginatedResponse<Alumni>;
         services: PaginatedResponse<Service>;
@@ -42,9 +44,9 @@ const Alumni = () => {
 
     // Set initial tab based on URL
     const getInitialTab = () => {
-        return window.location.pathname === '/page-builder/services'
+        return window.location.pathname === '/page-builder/services/add'
             ? 'services'
-            : window.location.pathname === '/page-builder/works'
+            : window.location.pathname === '/page-builder/works/add'
               ? 'works'
               : 'alumni';
     };
@@ -52,7 +54,7 @@ const Alumni = () => {
 
     // Update URL when tab changes
     const handleTabChange = (value: string) => {
-        const newUrl = value === 'alumni' ? '/page-builder/alumni' : value === 'services' ? '/page-builder/services' : '/page-builder/works';
+        const newUrl = value === 'alumni' ? '/page-builder/alumni' : value === 'services' ? '/page-builder/services' : '/page-builder/works/add';
         router.replace({
             url: newUrl,
             preserveState: true, // Keep current props
@@ -65,9 +67,9 @@ const Alumni = () => {
     useEffect(() => {
         const handlePopState = () => {
             const tab =
-                window.location.pathname === '/page-builder/services'
+                window.location.pathname === '/page-builder/services/add'
                     ? 'services'
-                    : window.location.pathname === '/page-builder/works'
+                    : window.location.pathname === '/page-builder/works/add'
                       ? 'works'
                       : 'alumni';
             setActiveTab(tab);
@@ -78,7 +80,7 @@ const Alumni = () => {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title={activeTab === 'alumni' ? 'Alumni' : activeTab === 'services' ? 'Services' : 'Works'} />
+            <Head title="Add Works" />
 
             <div className="px-4 py-6">
                 <Heading title="Page Builder" description="Customize and manage your website landing page" />
@@ -96,7 +98,7 @@ const Alumni = () => {
                         <ShowServices services={services.data} />
                     </TabsContent>
                     <TabsContent value="works">
-                        <ShowWorks works={works.data} />
+                        <AddWork />
                     </TabsContent>
                 </Tabs>
             </div>
@@ -104,4 +106,4 @@ const Alumni = () => {
     );
 };
 
-export default Alumni;
+export default AddWorks;

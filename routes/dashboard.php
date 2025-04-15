@@ -3,10 +3,12 @@
 use App\Http\Controllers\AdminEnrollmentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AlumniController;
+use App\Http\Controllers\Dashboard\ComplaintController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\ServiceRequestController;
 use App\Http\Controllers\Dashboard\SiteSettingsController;
 use App\Http\Controllers\Dashboard\StudentsController;
+use App\Http\Controllers\Dashboard\WorkController;
 use App\Http\Controllers\EnrollmentController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +47,13 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('page-builder/')->group
     Route::post('services', [ServiceController::class, 'store'])->name('services.store');
     Route::put('services/{service}', [ServiceController::class, 'update'])->name('services.update');
     Route::delete('services/{service}', [ServiceController::class, 'destroy'])->name('services.delete');
+
+    // Works
+    Route::get('works', [WorkController::class, 'index'])->name('works.index');
+    Route::get('works/add', [WorkController::class, 'create'])->name('works.create');
+    Route::post('works', [WorkController::class, 'store'])->name('works.store');
+    Route::put('works/{work}', [WorkController::class, 'update'])->name('works.update');
+    Route::delete('works/{work}', [WorkController::class, 'destroy'])->name('works.delete');
 });
 
 /**
@@ -72,11 +81,16 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
  * ROUTES TO DISPLAY STUDENTS PAGE, UPDATE STUDENTS' INFO - ADMIN ONLY
  * ROUTE TO COMPLETE REGISTRATION - USER ONLY
  */
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('students', [StudentsController::class, 'index'])->middleware('admin')->name('students.index');
-    Route::patch('students/{student}', [StudentsController::class, 'update'])->middleware('admin')->name('students.update');
-    Route::delete('students/{student}', [StudentsController::class, 'destroy'])->middleware('admin')->name('students.destroy');
+Route::middleware(['auth', 'verified'])->prefix('students')->group(function () {
+    Route::get('/', [StudentsController::class, 'index'])->middleware('admin')->name('students.index');
+    Route::patch('{student}', [StudentsController::class, 'update'])->middleware('admin')->name('students.update');
+    Route::delete('{student}', [StudentsController::class, 'destroy'])->middleware('admin')->name('students.destroy');
 
-    Route::get('students/complete-registration', [StudentsController::class, 'create'])->name('students.create');
-    Route::post('students/complete-registration', [StudentsController::class, 'store'])->name('students.store');
+    Route::get('complete-registration', [StudentsController::class, 'create'])->name('students.create');
+    Route::post('complete-registration', [StudentsController::class, 'store'])->name('students.store');
+
+    // STUDENTS COMPLAINTS
+    Route::prefix('complaints')->group( function () {
+        Route::get('/', [ComplaintController::class, 'index'])->name('students.complaints.index');
+    });
 });

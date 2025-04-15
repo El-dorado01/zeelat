@@ -45,14 +45,19 @@ class StudentsController extends Controller
     public function store(StudentRequest $request)
     {
         DB::transaction(function () use ($request) {
+            $data = $request->validated();
             try {
     
                 //Update the current user's profile
                 $user = Auth::user();
 
-                $studentData = array_merge($request->validated(), [
+                // Store new image and update path
+                $data['image'] = $request->file('image')->store('student-images', 'public');
+
+                $studentData = array_merge($data, [
                     'user_id' => $user->id,
                 ]);
+
                 $student = Student::create($studentData);
 
                 $user->name = $student->getUsername(); 

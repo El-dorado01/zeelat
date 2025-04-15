@@ -22,9 +22,11 @@ class SiteSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'auto_enroll' => 'sometimes|boolean',
-            'active_email' => 'sometimes|string|lowercase|email|max:255',
-            'site_logo' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'auto_enroll' => 'nullable|boolean',
+            'active_email' => 'nullable|string|lowercase|email|max:255',
+            'phone_number' => 'nullable|string|max:14',
+            'address'=> 'nullable|string|max:255',
+            'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 

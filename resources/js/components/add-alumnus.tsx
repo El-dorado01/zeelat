@@ -179,6 +179,7 @@ const AddAlumnus = () => {
                                 <Textarea
                                     id="remarks"
                                     placeholder="Enter remarks..."
+                                    required
                                     value={data.remarks || ''}
                                     onChange={(e) => setData('remarks', e.target.value)}
                                     className="mt-1 min-h-[100px] w-full"

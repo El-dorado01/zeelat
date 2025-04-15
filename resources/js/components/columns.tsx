@@ -122,22 +122,22 @@ export const studentsColumns: ColumnDef<Student>[] = [
             );
         },
     },
-    // {
-    //     accessorKey: 'email',
-    //     header: ({ column }) => {
-    //         return (
-    //             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-    //                 Email
-    //                 <ArrowUpDown className="ml-2 h-4 w-4" />
-    //             </Button>
-    //         );
-    //     },
-    //     cell: ({ row }) => {
-    //         const email = row.original.user.email;
+    {
+        accessorKey: 'email',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Email
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+        cell: ({ row }) => {
+            const email = row.original.user.email;
 
-    //         return <div className="font-medium">{`${email}`}</div>;
-    //     },
-    // },
+            return <div className="font-medium">{`${email}`}</div>;
+        },
+    },
     {
         accessorKey: 'gender',
         header: 'Gender',

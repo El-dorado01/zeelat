@@ -7,8 +7,11 @@ use App\Http\Requests\Dashboard\AlumniRequest;
 use App\Models\Alumni;
 use App\Models\Student;
 use App\Models\Service;
+use App\Models\User;
+use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AlumniController extends Controller
@@ -18,11 +21,10 @@ class AlumniController extends Controller
      */
     public function index()
     {
-        $alumni =  Alumni::latest()->paginate(5);
-        $services = Service::latest()->paginate(5);
         return Inertia::render('dashboard/alumni', [
-            'alumni' => $alumni,
-            'services' => $services,
+            'alumni' => fn () => Alumni::latest()->paginate(5),
+            'services' => fn () => Service::latest()->paginate(5),
+            'works' => fn () => Work::latest()->paginate(5),
         ]);
     }
 
@@ -31,11 +33,10 @@ class AlumniController extends Controller
      */
     public function create()
     {
-        $alumni =  Alumni::latest()->paginate(5);
-        $services = Service::latest()->paginate(5);
         return Inertia::render('dashboard/add-alumni', [
-            'alumni' => $alumni,
-            'services' => $services,
+            'alumni' => fn () => Alumni::latest()->paginate(5),
+            'services' => fn () => Service::latest()->paginate(5),
+            'works' => fn () => Work::latest()->paginate(5),
         ]);
     }
 
@@ -159,14 +160,30 @@ class AlumniController extends Controller
      */
     public function destroy(Alumni $alumni)
     {
-        try {
+        DB::transaction(function () use ($alumni) {
             $message = "Alumni has been removed!";
-    
-            $alumni->delete();
-            return redirect()->back()->with('success', $message);
-            
-        } catch (\Exception $e) {
-            throw new \Exception('Failed to delete alumni: ' . $e->getMessage());
-        }
+            try {
+                // Find the student by student_id
+                $student = Student::whereHas('user', function ($query) use ($alumni) {
+                    $query->where('email', $alumni->email);
+                })->first();
+
+                if($student){
+                    // Update the students table to mark as alumni
+                    $student->update(['isAlumni' => false]);
+                }else {
+                    // Delete old image if it exists
+                    if ($alumni->image) {
+                        Storage::disk('public')->delete($alumni->image);
+                    }
+                }
+        
+                $alumni->delete();
+                return to_route('alumni.index')->with('success', $message);
+                
+            } catch (\Exception $e) {
+                throw new \Exception('Failed to delete alumni: ' . $e->getMessage());
+            }
+        });
     }
 }

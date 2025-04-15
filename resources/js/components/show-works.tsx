@@ -2,54 +2,53 @@ import { CircleOff } from 'lucide-react';
 import { Card, CardContent, CardFooter } from './ui/card';
 
 import PageBuilderLayout from '@/layouts/pageBuilder/layout';
-import { type Service, type NavItem } from '@/types';
+import { Service, type Work, type NavItem } from '@/types';
 import { useState } from 'react';
 import DeleteService from './delete-service';
 import ServiceEdit from './edit-service';
 import { Badge } from './ui/badge';
+import WorkEdit from './edit-work';
+import DeleteWork from './delete-work';
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Services',
-        href: '/page-builder/services',
+        title: 'Works',
+        href: '/page-builder/works',
         icon: null,
     },
     {
-        title: 'Add Services',
-        href: '/page-builder/services/add',
+        title: 'Add Works',
+        href: '/page-builder/works/add',
         icon: null,
     },
 ];
 
-const ShowServices = ({ services }: { services: Service[] }) => {
-    const [servicesArray, setServicesArray] = useState(services);
+const ShowWorks = ({ works }: { works: Work[] }) => {
+    const [worksArray, setWorksArray] = useState(works);
     return (
         <PageBuilderLayout
             sidebarNavItems={sidebarNavItems}
-            title="List Services"
-            description="This page displays and manages all the services offered"
+            title="List Works"
+            description="This page displays and manages all your works you have done"
         >
             <div className="container mx-auto">
-                {services.length > 0 ? (
+                {works.length > 0 ? (
                     <>
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3">
-                            {services.map((service) => (
-                                <Card key={service.id} className="relative">
-                                    <Badge variant={'outline'} className="absolute top-3 right-3">
-                                        {service.service_count}
-                                    </Badge>
+                            {works.map((work) => (
+                                <Card key={work.id} className="relative">
                                     <CardContent className="flex flex-grow flex-col items-center justify-center space-y-2 p-4">
                                         <div className="flex w-full flex-col">
-                                            <h2 className="text-lg font-semibold">{service.name}</h2>
-                                            <p className="text-muted-foreground text-sm">{service.description}</p>
+                                            <h2 className="text-lg font-semibold">{work.work_title}</h2>
+                                            <p className="text-muted-foreground text-sm">{work.work_desc}</p>
                                         </div>
                                         <div className="h-[200px] w-full">
-                                            <img src={'/storage/' + service.image} className="h-[100%] w-[100%] rounded-sm object-cover" alt="" />
+                                            <img src={'/storage/' + work.image} className="h-[100%] w-[100%] rounded-sm object-cover" alt="" />
                                         </div>
                                     </CardContent>
                                     <CardFooter className="flex flex-col space-y-2">
-                                        <ServiceEdit service={service} />
-                                        <DeleteService service={service} />
+                                        <WorkEdit work={work} />
+                                        <DeleteWork work={work} />
                                     </CardFooter>
                                 </Card>
                             ))}
@@ -64,9 +63,8 @@ const ShowServices = ({ services }: { services: Service[] }) => {
                     </Card>
                 )}
             </div>
-            {/* </div> */}
         </PageBuilderLayout>
     );
 };
 
-export default ShowServices;
+export default ShowWorks;

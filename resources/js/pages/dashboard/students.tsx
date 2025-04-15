@@ -3,6 +3,7 @@ import { DataTable } from '@/components/ui/data-table';
 import AppLayout from '@/layouts/app-layout';
 import { Student, type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
+import { Component } from 'react';
 import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -24,7 +25,7 @@ const Students = () => {
                     data={students}
                     defaultColumnVisibility={{
                         name: true,
-                        // email: true,
+                        email: false,
                         student_id: true,
                         actions: true,
                         created_at: true,

@@ -8,6 +8,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -38,6 +40,38 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return to_route('profile.edit');
+    }
+
+    /**
+     * Update the user's profile settings.
+     */
+    public function changeAvatar(Request $request): RedirectResponse
+    {
+        DB::transaction(function () use ($request) {
+
+            $request->validate([
+                'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
+            // Delete old image if it exists
+            if ($request->user()->avatar) {
+                Storage::disk('public')->delete($request->user()->avatar);
+            }
+            // Store new image and update path
+            $image_path = $request->file('avatar')->store('avatar', 'public');
+
+            $request->user()->fill([
+                'avatar' => $image_path
+            ]);
+            
+            // if ($request->user()->isDirty('email')) {
+                //     $request->user()->email_verified_at = null;
+                // }
+                
+            $request->user()->save();
+            
+        });
+        return redirect()->back()->with('success', 'The avatar has been updated');
     }
 
     /**
