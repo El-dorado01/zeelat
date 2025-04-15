@@ -41,9 +41,12 @@ COPY php.ini /usr/local/etc/php/php.ini
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 775 /var/www/storage
 RUN chmod -R 775 /var/www/bootstrap/cache
-RUN mkdir -p /var/www/storage/framework/sessions /var/www/storage/framework/cache /var/www/storage/framework/views
-RUN chown -R www-data:www-data /var/www/storage/framework
-RUN chmod -R 775 /var/www/storage/framework
+RUN mkdir -p /var/www/storage/framework/sessions /var/www/storage/framework/cache /var/www/storage/framework/views /var/www/storage/logs
+RUN chown -R www-data:www-data /var/www/storage/framework /var/www/storage/logs
+RUN chmod -R 775 /var/www/storage/framework /var/www/storage/logs
+RUN touch /var/www/storage/logs/laravel.log
+RUN chown www-data:www-data /var/www/storage/logs/laravel.log
+RUN chmod 664 /var/www/storage/logs/laravel.log
 
 # Copy and configure scripts
 COPY migrate.sh /usr/local/bin/migrate.sh
