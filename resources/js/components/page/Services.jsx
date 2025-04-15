@@ -25,6 +25,12 @@ const Services = ({ services }) => {
                                         className="custom-block-image img-fluid"
                                         alt={'Services - ' + service.name}
                                     />
+                                    {/* <button
+                                        className="bg-design rounded-pill text-white"
+                                        style={{ marginTop: '10px', width: '100%', display: "flex", alignItems: "center", justifyContent: "center", border: 'none', fontWeight: "bold" }}
+                                    >
+                                        Request
+                                    </button> */}
                                 </a>
                             </div>
                         </div>
