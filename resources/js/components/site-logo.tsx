@@ -6,14 +6,14 @@ import { Transition } from '@headlessui/react';
 import { Card, CardContent } from './ui/card';
 import { Switch } from './ui/switch';
 import HeadingSmall from './heading-small';
-import { FormErrors, Site_Settings } from '@/types';
+import { FormErrors, Site_Setting } from '@/types';
 import { useForm } from '@inertiajs/react';
 import InputError from './input-error';
 import { usePost } from './usePost';
 import { toast } from 'sonner';
 
 
-const SiteLogo = ({site_settings}:{site_settings: Site_Settings}) => {
+const SiteLogo = ({site_settings}:{site_settings: Site_Setting}) => {
     const initialSiteLogoData = {
         site_logo: site_settings.site_logo || '',
         _method: 'PATCH',

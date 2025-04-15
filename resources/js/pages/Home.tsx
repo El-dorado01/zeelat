@@ -7,15 +7,15 @@ import Featured from '../components/page/Featured';
 import Hero from '../components/page/Hero';
 import Timeline from '../components/page/Timeline';
 import PageLayout from '../layouts/page-layout';
-import { type Services, type Alumni, type Site_Settings } from '@/types';
+import { type Alumni, type Service, type Site_Setting } from '@/types';
 
 export default function Home() {
     const { alumni, site_settings, services, student_count } = usePage<{
-        services: Services;
-        site_settings: Site_Settings;
+        alumni: Alumni[];
+        services: Service[];
+        site_settings: Site_Setting;
         student_count: number;
-    }>().props;
-    
+    }>().props;    
     
     useEffect(() => {
         const loadScripts = async () => {

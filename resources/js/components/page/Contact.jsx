@@ -14,23 +14,26 @@ const Contact = ({ site_settings }) => {
                     <div className="col-lg-4 col-md-6 col-12 mx-auto">
                         <h4 className="mb-3">Head office</h4>
 
-                        <p>Orita Aje, Iludun Osogbo, Osun State</p>
+                        <p>{site_settings.address ? site_settings.address : '23 Address, street example, Nigeria.'}</p>
 
                         <hr />
 
                         <p className="d-flex align-items-center mb-1">
                             <span className="me-2">Phone</span>
 
-                            <a href="tel: 080-5192-9719" className="site-footer-link">
-                                080-5192-9719
+                            <a href={'tel:' + site_settings.phone_number ? site_settings.phone_number : '081_****_****'} className="site-footer-link">
+                                {site_settings.phone_number ? site_settings.phone_number : '081_****_****'}
                             </a>
                         </p>
 
                         <p className="d-flex align-items-center">
                             <span className="me-2">Email</span>
 
-                            <a href={site_settings.length > 0 ? site_settings.active_email : 'info@company.com'} className="site-footer-link">
-                                {site_settings.length > 0 ? site_settings.active_email : 'info@company.com'}
+                            <a
+                                href={'mailto:' + site_settings.active_email ? site_settings.active_email : 'info@company.com'}
+                                className="site-footer-link"
+                            >
+                                {site_settings.active_email ? site_settings.active_email : 'info@company.com'}
                             </a>
                         </p>
                     </div>

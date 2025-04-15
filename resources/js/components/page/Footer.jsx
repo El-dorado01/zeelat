@@ -51,8 +51,8 @@ const Footer = ({ site_settings }) => {
                         <h6 className="site-footer-title mb-3">Information</h6>
 
                         <p className="d-flex mb-1 text-white">
-                            <a href="tel: 080-5192-9719" className="site-footer-link">
-                                080-5192-9719
+                            <a href={'tel:' + site_settings.phone_number ? site_settings.phone_number : '081_****_****'} className="site-footer-link">
+                                {site_settings.phone_number ? site_settings.phone_number : '081_****_****'}
                             </a>
                         </p>
 
@@ -91,7 +91,7 @@ const Footer = ({ site_settings }) => {
                         </div>
 
                         <p className="copyright-text mt-lg-5 mt-4">
-                            Copyright © { getFullYear() } Zeelat Computer Academy. All rights reserved.
+                            Copyright © {getFullYear()} Zeelat Computer Academy. All rights reserved.
                             <br />
                             <br />
                             Coded:{' '}

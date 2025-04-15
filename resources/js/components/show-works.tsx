@@ -2,13 +2,10 @@ import { CircleOff } from 'lucide-react';
 import { Card, CardContent, CardFooter } from './ui/card';
 
 import PageBuilderLayout from '@/layouts/pageBuilder/layout';
-import { Service, type Work, type NavItem } from '@/types';
+import { type NavItem, type Work } from '@/types';
 import { useState } from 'react';
-import DeleteService from './delete-service';
-import ServiceEdit from './edit-service';
-import { Badge } from './ui/badge';
-import WorkEdit from './edit-work';
 import DeleteWork from './delete-work';
+import WorkEdit from './edit-work';
 
 const sidebarNavItems: NavItem[] = [
     {

@@ -41,6 +41,9 @@ COPY php.ini /usr/local/etc/php/php.ini
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 775 /var/www/storage
 RUN chmod -R 775 /var/www/bootstrap/cache
+RUN mkdir -p /var/www/storage/framework/sessions /var/www/storage/framework/cache /var/www/storage/framework/views
+RUN chown -R www-data:www-data /var/www/storage/framework
+RUN chmod -R 775 /var/www/storage/framework
 
 # Copy and configure scripts
 COPY migrate.sh /usr/local/bin/migrate.sh
